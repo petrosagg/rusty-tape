@@ -4,13 +4,15 @@ use std::fs::{self, File};
 use std::path::Path;
 use std::io::prelude::*;
 use std::collections::HashMap;
+use serde::Serialize;
 use serde_json::Value;
 use scraper::{Html, Selector};
 use percent_encoding::percent_decode_str;
 
-#[derive(Debug)]
+#[derive(Debug,Serialize)]
 struct Cassette<'a> {
     name: String,
+    safe_name: String,
     path: String,
     url: String,
     yt_url: String,
@@ -19,14 +21,14 @@ struct Cassette<'a> {
     created_at: String,
 }
 
-#[derive(Debug)]
+#[derive(Debug,Serialize)]
 struct Subcategory {
     name: String,
     category: String,
     kind: SubcategoryKind,
 }
 
-#[derive(Debug)]
+#[derive(Debug,Serialize)]
 enum SubcategoryKind {
     Label(String),
     Cassette(String),
@@ -107,13 +109,13 @@ async fn main() -> Result<(), reqwest::Error> {
 
                     if let Some(yt_url) = url.filter(|u| u.contains("videoseries")) {
                         let name = entry["title"]["$t"].as_str().unwrap().trim();
+                        // Some cassettes contain slashes in their names
+                        let safe_name = name.replace('/', "-");
                         let url = entry["link"][2]["href"].as_str().unwrap().to_string();
 
                         // Extract year and date from URL like this: https://www.kasetophono.com/2019/01/nero.html
                         let mut path: Vec<&str> = url.split('/').rev().skip(1).take(2).chain(Some("cassettes")).collect();
                         path.reverse();
-                        // Some cassettes contain slashes in their names
-                        let safe_name = name.replace('/', "-");
                         path.push(&safe_name);
                         let path = path.join("/");
 
@@ -137,6 +139,7 @@ async fn main() -> Result<(), reqwest::Error> {
 
                         let cassette = Cassette{
                             name: name.to_string(),
+                            safe_name: safe_name,
                             path: path,
                             subcategories: subcategories,
                             labels: labels,
@@ -152,6 +155,12 @@ async fn main() -> Result<(), reqwest::Error> {
             }
             None => break
         }
+    }
+
+    {
+        let buf = serde_json::to_string(&cassettes).unwrap();
+        let mut file = File::create("metadata.json").unwrap();
+        file.write_all(buf.as_bytes()).unwrap();
     }
 
     // remove any partial downloads from previous runs
@@ -203,7 +212,7 @@ async fn main() -> Result<(), reqwest::Error> {
             let label_path = format!("labels/{}", label);
             fs::create_dir_all(&label_path).unwrap();
             let src = format!("../../{}", cassette.path);
-            let dest = format!("{}/{}", &label_path, cassette.name);
+            let dest = format!("{}/{}", &label_path, cassette.safe_name);
             println!("Symlinking {} -> {}", dest, src);
             symlink(src, dest).unwrap();
         }
@@ -212,7 +221,7 @@ async fn main() -> Result<(), reqwest::Error> {
             let subcategory_path = format!("categories/{}/{}", subcategory.category, subcategory.name);
             fs::create_dir_all(&subcategory_path).unwrap();
             let src = format!("../../../{}", cassette.path);
-            let dest = format!("{}/{}", &subcategory_path, cassette.name);
+            let dest = format!("{}/{}", &subcategory_path, cassette.safe_name);
             println!("Symlinking {} -> {}", dest, src);
             symlink(src, dest).unwrap();
         }
