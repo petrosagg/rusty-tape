@@ -18,6 +18,7 @@ struct Cassette<'a> {
     path: String,
     url: String,
     yt_url: String,
+    image_url: Option<String>,
     labels: Vec<String>,
     subcategories: Vec<&'a Subcategory>,
     created_at: String,
@@ -96,8 +97,9 @@ async fn main() -> Result<(), reqwest::Error> {
     let mut index = 1;
     let mut cassettes = Vec::new();
 
-    let selector = Selector::parse("iframe").unwrap();
-    'main: loop {
+    let iframe_selector = Selector::parse("iframe").unwrap();
+    let image_selector = Selector::parse("img").unwrap();
+    loop {
         let url = format!("https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}", index);
         let body = reqwest::get(&url).await?.text().await?;
 
@@ -109,7 +111,7 @@ async fn main() -> Result<(), reqwest::Error> {
 
                 for entry in entries {
                     let content = Html::parse_fragment(entry["content"]["$t"].as_str().unwrap());
-                    let url = content.select(&selector).next().and_then(|e| e.value().attr("src"));
+                    let url = content.select(&iframe_selector).next().and_then(|e| e.value().attr("src"));
 
                     if let Some(yt_url) = url.filter(|u| u.contains("videoseries")) {
                         let name = entry["title"]["$t"].as_str().unwrap().trim();
@@ -141,12 +143,15 @@ async fn main() -> Result<(), reqwest::Error> {
                             }
                         }).collect();
 
+                        let image = content.select(&image_selector).next().and_then(|e| e.value().attr("src"));
+
                         let cassette = Cassette{
                             name: name.to_string(),
                             safe_name: safe_name,
                             path: path,
                             subcategories: subcategories,
                             labels: labels,
+                            image_url: image.map(|s| s.to_string()),
                             url: url,
                             yt_url: yt_url.to_string(),
                             created_at: published.to_string(),
@@ -154,7 +159,6 @@ async fn main() -> Result<(), reqwest::Error> {
 
                         println!("{:#?}", cassette);
                         cassettes.push(cassette);
-                        break 'main;
                     }
                 }
             }
@@ -163,7 +167,7 @@ async fn main() -> Result<(), reqwest::Error> {
     }
 
     {
-        let buf = serde_json::to_string(&cassettes).unwrap();
+        let buf = serde_json::to_string_pretty(&cassettes).unwrap();
         let mut file = File::create("metadata.json").unwrap();
         file.write_all(buf.as_bytes()).unwrap();
     }
@@ -182,10 +186,10 @@ async fn main() -> Result<(), reqwest::Error> {
             .current_dir(".tmp-cassette")
             .args(&[
                 "--extract-audio",
-                "--audio-format", "m4a",
-                "--audio-quality", "128",
+                "--playlist-end", "3",
+                "--audio-format", "mp3",
+                "--audio-quality", "160",
                 "--add-metadata",
-                "--embed-thumbnail",
                 "--geo-bypass-country", "GR",
                 "--ignore-errors",
                 "--output", "%(playlist_index)s - %(title)s.%(ext)s",
@@ -194,21 +198,27 @@ async fn main() -> Result<(), reqwest::Error> {
             .status()
             .expect("failed to execute youtube-dl");
 
-        let mut buf = Vec::new();
-        writeln!(buf, "#EXTM3U").unwrap();
-        writeln!(buf, "#PLAYLIST:{}", cassette.name).unwrap();
-        writeln!(buf, "#EXT-X-PROGRAM-DATE-TIME:{}", cassette.created_at).unwrap();
+        if let Some(url) = &cassette.image_url {
+            let data = reqwest::get(url).await?.bytes().await?;
+            let mut thumb = File::create(".tmp-cassette/thumbnail.gif").unwrap();
+
+            thumb.write_all(data.as_ref()).unwrap();
+        }
+
         let mut songs = fs::read_dir(".tmp-cassette")
             .unwrap()
-            .map(|res| res.unwrap().file_name().into_string().unwrap())
-            .collect::<Vec<String>>();
+            .map(|res| res.unwrap().path().to_str().unwrap().to_string())
+            .filter(|p| !p.contains("thumbnail.gif"))
+            .collect::<Vec<_>>();
         songs.sort_unstable();
-        for song in songs {
-            writeln!(buf, "{}", song).unwrap();
-        };
 
-        let mut file = File::create(".tmp-cassette/playlist.m3u").unwrap();
-        file.write_all(&buf).unwrap();
+        let total = songs.len() as u8;
+        for (i, song) in songs.iter().enumerate() {
+            println!("Normalizing track: {}", song);
+            let l = audio::measure_loudness(song);
+            audio::correct_loudness(song, song, l);
+            audio::add_cassette_metadata(song, song, &cassette.name, (i + 1) as u8, total, ".tmp-cassette/thumbnail.gif");
+        };
 
         fs::create_dir_all(Path::new(&cassette.path).parent().unwrap()).unwrap();
         fs::rename(".tmp-cassette", &cassette.path).unwrap();

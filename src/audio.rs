@@ -1,4 +1,3 @@
-use std::path::PathBuf;
 use std::str;
 use std::str::FromStr;
 use std::process::{Command, Stdio};
@@ -9,7 +8,7 @@ use serde::de;
 use serde_json::Value;
 
 #[derive(Debug,Copy,Clone,PartialEq,Deserialize)]
-struct LoudNorm {
+pub struct LoudNorm {
     #[serde(deserialize_with = "de_fromstr")]
     input_i: f32,
     #[serde(deserialize_with = "de_fromstr")]
@@ -28,7 +27,7 @@ fn de_fromstr<'de, D: Deserializer<'de>, T: FromStr>(deserializer: D) -> Result<
     s.parse().or(Err(de::Error::custom("invalid value")))
 }
 
-fn measure_loudness(path: &str) -> LoudNorm {
+pub fn measure_loudness(path: &str) -> LoudNorm {
     let output = Command::new("ffmpeg")
         .args(&[
             "-nostdin", "-nostats", "-y",
@@ -55,7 +54,7 @@ fn measure_loudness(path: &str) -> LoudNorm {
     serde_json::from_str(&result).expect("Invalid ffmpeg json")
 }
 
-fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
+pub fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
     // values taken from ffmpeg-normalize with default arguments
     let filter = format!("[0:0]loudnorm=i=-23.0:\
                           lra=7.0:\
@@ -97,7 +96,7 @@ fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
     fs::rename(".ffmpeg-workdir/audio.mp3", output).unwrap();
 }
 
-fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_n: u8, track_total: u8, album_art_path: &str) {
+pub fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_n: u8, track_total: u8, album_art_path: &str) {
     let album_metadata = format!("album={}", album_name);
     let track_metadata = format!("track={}/{}", track_n, track_total);
 
