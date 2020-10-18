@@ -1,7 +1,7 @@
 use std::path::PathBuf;
 use std::str;
 use std::str::FromStr;
-use std::process::Command;
+use std::process::{Command, Stdio};
 use serde::Deserialize;
 use std::fs;
 use serde::Deserializer;
@@ -38,6 +38,7 @@ fn measure_loudness(path: &str) -> LoudNorm {
             "-f", "null",
             "/dev/null",
         ])
+        .stderr(Stdio::piped())
         .output()
         .expect("Failed to run ffmpeg");
 
@@ -54,7 +55,7 @@ fn measure_loudness(path: &str) -> LoudNorm {
     serde_json::from_str(&result).expect("Invalid ffmpeg json")
 }
 
-fn correct_loudness(path: &str, l: LoudNorm) {
+fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
     // values taken from ffmpeg-normalize with default arguments
     let filter = format!("[0:0]loudnorm=i=-23.0:\
                           lra=7.0:\
@@ -74,16 +75,18 @@ fn correct_loudness(path: &str, l: LoudNorm) {
     let status = Command::new("ffmpeg")
         .args(&[
             "-nostdin", "-nostats", "-y",
-            "-i", path,
+            "-i", input,
             "-filter_complex", &filter,
             "-map_metadata", "0",
             "-map_metadata:s:a:0", "0:s:a:0",
             "-map_chapters", "0",
             "-map", "[norm0]",
-            "-c:a", "aac",
+            "-c:a", "libmp3lame",
+            "-q:a", "2",
             "-vn", "-sn",
-            ".ffmpeg-workdir/audio.m4a"
+            ".ffmpeg-workdir/audio.mp3"
         ])
+        .stderr(Stdio::null())
         .status()
         .expect("Failed to run ffmpeg");
 
@@ -91,9 +94,37 @@ fn correct_loudness(path: &str, l: LoudNorm) {
         panic!();
     }
 
-    fs::rename(".ffmpeg-workdir/audio.m4a", path).unwrap();
+    fs::rename(".ffmpeg-workdir/audio.mp3", output).unwrap();
 }
 
+fn add_cassette_metadata(input: &str, output: &str, album_name: &str, album_art_path: &str) {
+    let album_metadata = format!("album={}", album_name);
+
+    let status = Command::new("ffmpeg")
+        .args(&[
+            "-nostdin", "-nostats", "-y",
+            "-i", input,
+            "-i", album_art_path,
+            "-map", "0:0",
+            "-map", "1:0",
+            "-c", "copy",
+            "-c:v", "png",
+            "-id3v2_version", "3",
+            "-metadata:s:v", "title=Album cover",
+            "-metadata:s:v", "comment=Cover (front)",
+            "-metadata", &album_metadata,
+            ".ffmpeg-workdir/audio.mp3"
+        ])
+        .stderr(Stdio::null())
+        .status()
+        .expect("Failed to run ffmpeg");
+
+    if !status.success() {
+        panic!();
+    }
+
+    fs::rename(".ffmpeg-workdir/audio.mp3", output).unwrap();
+}
 
 #[cfg(test)]
 mod tests {
@@ -101,17 +132,18 @@ mod tests {
 
     #[test]
     fn measure_audio() {
-        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.push("resources/test-audio.m4a");
+        let mut input = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+        input.push("resources/test-audio.mp3");
+        let input = input.to_str().expect("Invalid path");
 
-        let loudnorm = measure_loudness(path.to_str().expect("Invalid path"));
+        let loudnorm = measure_loudness(input);
 
         let expected = LoudNorm{
-            input_i: -14.0,
-            input_tp: -0.16,
+            input_i: -14.01,
+            input_tp: -0.21,
             input_lra: 1.1,
             input_thresh: -24.03,
-            target_offset: 0.35,
+            target_offset: 0.35
         };
 
         assert_eq!(loudnorm, expected);
@@ -119,11 +151,37 @@ mod tests {
 
     #[test]
     fn correct_audio() {
-        let mut path = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-        path.push("resources/test-audio.m4a");
+        let base = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
 
-        let loudnorm = measure_loudness(path.to_str().expect("Invalid path"));
+        let mut input = base.clone();
+        input.push("resources/test-audio.mp3");
+        let input = input.to_str().expect("Invalid path");
 
-        correct_loudness(path.to_str().expect("Invalid path"), loudnorm);
+        let mut output = base.clone();
+        output.push("resources/test-correct_audio.mp3");
+        let output = output.to_str().expect("Invalid path");
+
+        let loudnorm = measure_loudness(input);
+
+        correct_loudness(input, output, loudnorm);
+    }
+
+    #[test]
+    fn correct_metadata() {
+        let base = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
+
+        let mut input = base.clone();
+        input.push("resources/test-audio.mp3");
+        let input = input.to_str().expect("Invalid path");
+
+        let mut output = base.clone();
+        output.push("resources/test-correct_metadata.mp3");
+        let output = output.to_str().expect("Invalid path");
+
+        let mut img_path = base.clone();
+        img_path.push("resources/album-art.gif");
+        let img_path = img_path.to_str().expect("Invalid path");
+
+        add_cassette_metadata(input, output, "My album", img_path);
     }
 }
