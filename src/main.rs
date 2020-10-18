@@ -9,6 +9,8 @@ use serde_json::Value;
 use scraper::{Html, Selector};
 use percent_encoding::percent_decode_str;
 
+mod audio;
+
 #[derive(Debug,Serialize)]
 struct Cassette<'a> {
     name: String,
@@ -37,13 +39,12 @@ enum SubcategoryKind {
 #[tokio::main]
 async fn main() -> Result<(), reqwest::Error> {
     let body = reqwest::get("https://kasetophono.com").await?.text().await?;
-    let selector = Selector::parse("ul#nav2 li a").unwrap();
     let content = Html::parse_document(&body);
 
-    let mut all_subcategories = vec![];
-
     let mut categories = HashMap::new();
-    for element in content.select(&selector) {
+    let category_selector = Selector::parse("ul#nav2 li a").unwrap();
+
+    for element in content.select(&category_selector) {
         let href = element.value().attr("href").unwrap();
         if href.contains("/p/") {
             let name = element.text().next().unwrap().trim().trim_start_matches('_');
@@ -63,10 +64,13 @@ async fn main() -> Result<(), reqwest::Error> {
         }
     }
 
+    let mut all_subcategories = vec![];
+
     for (url, category) in &mut categories {
         let body = reqwest::get(*url).await?.text().await?;
-        let selector = Selector::parse("div.post-body h1.favourite-posts-title a").unwrap();
         let content = Html::parse_document(&body);
+
+        let selector = Selector::parse("div.post-body h1.favourite-posts-title a").unwrap();
 
         for element in content.select(&selector) {
             let name = element.text().next().unwrap().trim().to_string();
@@ -93,7 +97,7 @@ async fn main() -> Result<(), reqwest::Error> {
     let mut cassettes = Vec::new();
 
     let selector = Selector::parse("iframe").unwrap();
-    loop {
+    'main: loop {
         let url = format!("https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}", index);
         let body = reqwest::get(&url).await?.text().await?;
 
@@ -150,6 +154,7 @@ async fn main() -> Result<(), reqwest::Error> {
 
                         println!("{:#?}", cassette);
                         cassettes.push(cassette);
+                        break 'main;
                     }
                 }
             }
