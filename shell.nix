@@ -6,6 +6,7 @@ stdenv.mkDerivation {
         openssl
         pkgconfig
         youtube-dl
+        ffmpeg
         cargo
     ];
 }
