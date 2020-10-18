@@ -186,7 +186,6 @@ async fn main() -> Result<(), reqwest::Error> {
             .current_dir(".tmp-cassette")
             .args(&[
                 "--extract-audio",
-                "--playlist-end", "3",
                 "--audio-format", "mp3",
                 "--audio-quality", "160",
                 "--add-metadata",
