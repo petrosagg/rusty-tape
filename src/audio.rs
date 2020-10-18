@@ -97,8 +97,9 @@ fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
     fs::rename(".ffmpeg-workdir/audio.mp3", output).unwrap();
 }
 
-fn add_cassette_metadata(input: &str, output: &str, album_name: &str, album_art_path: &str) {
+fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_n: u8, track_total: u8, album_art_path: &str) {
     let album_metadata = format!("album={}", album_name);
+    let track_metadata = format!("track={}/{}", track_n, track_total);
 
     let status = Command::new("ffmpeg")
         .args(&[
@@ -113,6 +114,7 @@ fn add_cassette_metadata(input: &str, output: &str, album_name: &str, album_art_
             "-metadata:s:v", "title=Album cover",
             "-metadata:s:v", "comment=Cover (front)",
             "-metadata", &album_metadata,
+            "-metadata", &track_metadata,
             ".ffmpeg-workdir/audio.mp3"
         ])
         .stderr(Stdio::null())
@@ -182,6 +184,6 @@ mod tests {
         img_path.push("resources/album-art.gif");
         let img_path = img_path.to_str().expect("Invalid path");
 
-        add_cassette_metadata(input, output, "My album", img_path);
+        add_cassette_metadata(input, output, "My album", 3, 10, img_path);
     }
 }
