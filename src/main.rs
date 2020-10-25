@@ -188,7 +188,7 @@ async fn main() -> Result<(), reqwest::Error> {
             .args(&[
                 "--extract-audio",
                 "--audio-format", "mp3",
-                "--audio-quality", "160",
+                "--audio-quality", "2",
                 "--add-metadata",
                 "--geo-bypass-country", "GR",
                 "--ignore-errors",
