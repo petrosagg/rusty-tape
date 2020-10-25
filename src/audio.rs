@@ -7,6 +7,8 @@ use serde::de;
 use serde_json::Value;
 use tempfile::NamedTempFile;
 
+use super::Cassette;
+
 #[derive(Debug,Copy,Clone,PartialEq,Deserialize)]
 pub struct LoudNorm {
     #[serde(deserialize_with = "de_fromstr")]
@@ -97,11 +99,16 @@ pub fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
     tmp_output.persist(output).unwrap();
 }
 
-pub fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_n: u8, track_total: u8, album_art_path: &str) {
-    let album_metadata = format!("album={}", album_name);
-    let track_metadata = format!("track={}/{}", track_n, track_total);
+pub fn add_cassette_metadata(input: &str, output: &str, cassette: &Cassette, track_n: u8, track_total: u8, album_art_path: &str) {
+    let date = &cassette.created_at[..10];
 
-    let tmp_output = NamedTempFile::new().unwrap().into_temp_path();
+    let album_metadata = format!("album={} | {}", cassette.name, date[..7].replace("-", "/"));
+    let track_metadata = format!("track={}/{}", track_n, track_total);
+    let creation_time_metadata = format!("creation_time={}", date);
+    let date_metadata = format!("date={}", date);
+
+    std::fs::create_dir_all(".ffmpeg-workdir").unwrap();
+    let tmp_output = NamedTempFile::new_in(".ffmpeg-workdir").unwrap().into_temp_path();
 
     let status = Command::new("ffmpeg")
         .args(&[
@@ -117,6 +124,8 @@ pub fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_
             "-metadata:s:v", "comment=Cover (front)",
             "-metadata", &album_metadata,
             "-metadata", &track_metadata,
+            "-metadata", &creation_time_metadata,
+            "-metadata", &date_metadata,
             "-f", "mp3",
             tmp_output.to_str().unwrap()
         ])

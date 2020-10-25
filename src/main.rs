@@ -13,20 +13,20 @@ use rayon::prelude::*;
 mod audio;
 
 #[derive(Debug,Serialize)]
-struct Cassette<'a> {
-    name: String,
-    safe_name: String,
-    path: String,
-    url: String,
-    yt_url: String,
-    image_url: Option<String>,
-    labels: Vec<String>,
-    subcategories: Vec<&'a Subcategory>,
-    created_at: String,
+pub struct Cassette<'a> {
+    pub name: String,
+    pub safe_name: String,
+    pub path: String,
+    pub url: String,
+    pub yt_url: String,
+    pub image_url: Option<String>,
+    pub labels: Vec<String>,
+    pub subcategories: Vec<&'a Subcategory>,
+    pub created_at: String,
 }
 
 #[derive(Debug,Serialize)]
-struct Subcategory {
+pub struct Subcategory {
     name: String,
     category: String,
     kind: SubcategoryKind,
@@ -221,7 +221,7 @@ async fn main() -> Result<(), reqwest::Error> {
             println!("Normalizing track: {}", song);
             let l = audio::measure_loudness(song);
             audio::correct_loudness(song, song, l);
-            audio::add_cassette_metadata(song, song, &cassette.name, (i + 1) as u8, total, ".tmp-cassette/thumbnail.gif");
+            audio::add_cassette_metadata(song, song, &cassette, (i + 1) as u8, total, ".tmp-cassette/thumbnail.gif");
         });
 
         fs::create_dir_all(Path::new(&cassette.path).parent().unwrap()).unwrap();
