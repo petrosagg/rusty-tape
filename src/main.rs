@@ -183,7 +183,7 @@ async fn main() -> Result<(), reqwest::Error> {
         }
         fs::create_dir(".tmp-cassette").unwrap();
 
-        Command::new("youtube-dl")
+        let status = Command::new("youtube-dl")
             .current_dir(".tmp-cassette")
             .args(&[
                 "--extract-audio",
@@ -197,6 +197,10 @@ async fn main() -> Result<(), reqwest::Error> {
             ])
             .status()
             .expect("failed to execute youtube-dl");
+
+        if !status.success() {
+            panic!();
+        }
 
         if let Some(url) = &cassette.image_url {
             let data = reqwest::get(url).await?.bytes().await?;
