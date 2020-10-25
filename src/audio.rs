@@ -2,10 +2,10 @@ use std::str;
 use std::str::FromStr;
 use std::process::{Command, Stdio};
 use serde::Deserialize;
-use std::fs;
 use serde::Deserializer;
 use serde::de;
 use serde_json::Value;
+use tempfile::NamedTempFile;
 
 #[derive(Debug,Copy,Clone,PartialEq,Deserialize)]
 pub struct LoudNorm {
@@ -67,9 +67,9 @@ pub fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
                           linear=true:\
                           print_format=json[norm0]", l.target_offset, l.input_i, l.input_lra, l.input_tp, l.input_thresh);
 
-    // remove any partial downloads from previous runs
-    fs::remove_dir_all(".ffmpeg-workdir").unwrap_or(());
-    fs::create_dir(".ffmpeg-workdir").unwrap();
+
+    std::fs::create_dir_all(".ffmpeg-workdir").unwrap();
+    let tmp_output = NamedTempFile::new_in(".ffmpeg-workdir").unwrap().into_temp_path();
 
     let status = Command::new("ffmpeg")
         .args(&[
@@ -83,7 +83,8 @@ pub fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
             "-c:a", "libmp3lame",
             "-q:a", "2",
             "-vn", "-sn",
-            ".ffmpeg-workdir/audio.mp3"
+            "-f", "mp3",
+            tmp_output.to_str().unwrap()
         ])
         .stderr(Stdio::null())
         .status()
@@ -93,12 +94,14 @@ pub fn correct_loudness(input: &str, output: &str, l: LoudNorm) {
         panic!();
     }
 
-    fs::rename(".ffmpeg-workdir/audio.mp3", output).unwrap();
+    tmp_output.persist(output).unwrap();
 }
 
 pub fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_n: u8, track_total: u8, album_art_path: &str) {
     let album_metadata = format!("album={}", album_name);
     let track_metadata = format!("track={}/{}", track_n, track_total);
+
+    let tmp_output = NamedTempFile::new().unwrap().into_temp_path();
 
     let status = Command::new("ffmpeg")
         .args(&[
@@ -114,7 +117,8 @@ pub fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_
             "-metadata:s:v", "comment=Cover (front)",
             "-metadata", &album_metadata,
             "-metadata", &track_metadata,
-            ".ffmpeg-workdir/audio.mp3"
+            "-f", "mp3",
+            tmp_output.to_str().unwrap()
         ])
         .stderr(Stdio::null())
         .status()
@@ -124,7 +128,7 @@ pub fn add_cassette_metadata(input: &str, output: &str, album_name: &str, track_
         panic!();
     }
 
-    fs::rename(".ffmpeg-workdir/audio.mp3", output).unwrap();
+    tmp_output.persist(output).unwrap();
 }
 
 #[cfg(test)]
