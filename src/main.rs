@@ -8,6 +8,7 @@ use serde::Serialize;
 use serde_json::Value;
 use scraper::{Html, Selector};
 use percent_encoding::percent_decode_str;
+use rayon::prelude::*;
 
 mod audio;
 
@@ -212,12 +213,12 @@ async fn main() -> Result<(), reqwest::Error> {
         songs.sort_unstable();
 
         let total = songs.len() as u8;
-        for (i, song) in songs.iter().enumerate() {
+        songs.par_iter().enumerate().for_each(|(i, song)| {
             println!("Normalizing track: {}", song);
             let l = audio::measure_loudness(song);
             audio::correct_loudness(song, song, l);
             audio::add_cassette_metadata(song, song, &cassette.name, (i + 1) as u8, total, ".tmp-cassette/thumbnail.gif");
-        };
+        });
 
         fs::create_dir_all(Path::new(&cassette.path).parent().unwrap()).unwrap();
         fs::rename(".tmp-cassette", &cassette.path).unwrap();
