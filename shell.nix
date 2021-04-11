@@ -8,5 +8,8 @@ stdenv.mkDerivation {
         youtube-dl
         ffmpeg
         cargo
+        rustup
+        nodejs
+        mpv
     ];
 }
