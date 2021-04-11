@@ -30,7 +30,7 @@ export default function App() {
     fetch("api/play/" + uuid);
   };
   const stop = () => {
-    console.log("Stopping");
+    fetch("api/stop");
   };
 
   if (error) {
@@ -39,14 +39,17 @@ export default function App() {
     return <div>Loading...</div>;
   } else {
     return (
-      <ul>
-        {Object.values(items).map((item) => (
-          <li key={item.uuid}>
-            {item.name}
-            <Button onClick={() => play(item.uuid)}>Play</Button>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <Button onClick={stop}>Stop</Button>
+        <List>
+          {Object.values(items).map((item) => (
+            <List.Item key={item.uuid}>
+              {item.name}
+              <Button onClick={() => play(item.uuid)}>Play</Button>
+            </List.Item>
+          ))}
+        </List>
+      </div>
     );
   }
 }
