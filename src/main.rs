@@ -223,7 +223,7 @@ async fn main() -> Result<(), anyhow::Error> {
     let state: Arc<Mutex<Option<Child>>> = Arc::new(Mutex::new(None));
 
     let play_state = Arc::clone(&state);
-    let play = warp::path!("play" / Uuid)
+    let play = warp::path!("api" / "play" / Uuid)
         .map(move |uuid: Uuid| {
             let cassette = &cassettes[&uuid];
 
@@ -241,7 +241,7 @@ async fn main() -> Result<(), anyhow::Error> {
         });
 
     let stop_state = Arc::clone(&state);
-    let stop = warp::path!("stop")
+    let stop = warp::path!("api" / "stop")
         .map(move || {
             println!("stopping");
             let mut state = stop_state.lock().unwrap();
@@ -251,7 +251,7 @@ async fn main() -> Result<(), anyhow::Error> {
             format!("Killed")
         });
 
-    let cassettes = warp::path!("cassettes")
+    let cassettes = warp::path!("api" / "cassettes")
         .and(warp::fs::file("metadata.json"))
         .with(warp::compression::gzip());
 
