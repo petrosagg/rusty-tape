@@ -255,7 +255,12 @@ async fn main() -> Result<(), anyhow::Error> {
         .and(warp::fs::file("metadata.json"))
         .with(warp::compression::gzip());
 
-    let routes = warp::get().and(play.or(stop).or(cassettes));
+    let routes = warp::get().and(
+        play
+        .or(stop)
+        .or(cassettes)
+        .or(warp::fs::dir("frontend/dist"))
+    );
 
     warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
 
