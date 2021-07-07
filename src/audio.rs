@@ -1,6 +1,7 @@
 use std::str;
 use std::str::FromStr;
 use std::process::{Command, Stdio};
+use std::path::PathBuf;
 use serde::Deserialize;
 use serde::Deserializer;
 use serde::de;
@@ -52,7 +53,7 @@ pub fn measure_loudness(path: &str) -> LoudNorm {
     }
 
     let result = stderr.collect::<String>();
-    
+
     serde_json::from_str(&result).expect("Invalid ffmpeg json")
 }
 

@@ -17,8 +17,6 @@ use uuid::Uuid;
 use std::sync::Mutex;
 use std::process::Child;
 
-mod audio;
-
 #[derive(Debug,Serialize,Deserialize)]
 pub struct Cassette {
     pub uuid: Uuid,
@@ -196,28 +194,18 @@ fn cassettes(subcategories: &[Subcategory]) -> impl Stream<Item=Result<Vec<(Uuid
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
-    let cassettes: HashMap<Uuid, Cassette> = if let Ok(content) = std::fs::read_to_string("metadata.json") {
-        println!("Loading cassettes from disk");
-        serde_json::from_str(&content).unwrap()
-    } else {
-        println!("Loading cassettes from upstream");
-        let categories = categories().await?;
+    println!("Loading cassettes from upstream");
+    let categories = categories().await?;
 
-        let subcategories = subcategories(&categories).await?;
+    let subcategories = subcategories(&categories).await?;
 
-        let cassette_stream = cassettes(&subcategories);
-        tokio::pin!(cassette_stream);
+    let cassette_stream = cassettes(&subcategories);
+    tokio::pin!(cassette_stream);
 
-        let mut cassettes = HashMap::new();
-        while let Some(Ok(page)) = cassette_stream.next().await {
-            cassettes.extend(page);
-        }
-
-        let buf = serde_json::to_string_pretty(&cassettes).unwrap();
-        let mut file = File::create("metadata.json").unwrap();
-        file.write_all(buf.as_bytes()).unwrap();
-        cassettes
-    };
+    let mut cassettes = HashMap::new();
+    while let Some(Ok(page)) = cassette_stream.next().await {
+        cassettes.extend(page);
+    }
 
     let cassettes = Arc::new(cassettes);
     let state: Arc<Mutex<Option<Child>>> = Arc::new(Mutex::new(None));
