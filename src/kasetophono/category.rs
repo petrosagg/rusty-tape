@@ -5,9 +5,9 @@ use scraper::{Html, Selector};
 #[derive(Debug,PartialEq)]
 pub struct Category {
     /// The name of the category
-    name: String,
+    pub name: String,
     /// The URL of the category blogpost containing the subcategories
-    url: String,
+    pub url: String,
 }
 
 /// Extracts the list of categories from the frontpage of kasetophono.com

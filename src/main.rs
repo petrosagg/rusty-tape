@@ -18,6 +18,9 @@ use std::sync::Mutex;
 use std::process::Child;
 
 mod audio;
+mod kasetophono;
+
+use kasetophono::Category;
 
 #[derive(Debug,Serialize,Deserialize)]
 pub struct Cassette {
@@ -46,41 +49,11 @@ enum SubcategoryKind {
     Cassette(String),
 }
 
-async fn categories() -> Result<Vec<(String, String)>, anyhow::Error> {
-    let body = reqwest::get("https://kasetophono.com").await?.text().await?;
-    let content = Html::parse_document(&body);
-
-    let mut categories = HashMap::new();
-    let category_selector = Selector::parse("ul#nav2 li a").unwrap();
-
-    for element in content.select(&category_selector) {
-        let href = element.value().attr("href").unwrap();
-        if href.contains("/p/") {
-            let name = element.text().next().unwrap().trim().trim_start_matches('_');
-
-            let name = name.chars()
-                .enumerate()
-                .map(|(i, c)| {
-                    if i == 0 {
-                        c.to_uppercase().next().unwrap()
-                    } else {
-                        c.to_lowercase().next().unwrap()
-                    }
-                })
-                .collect::<String>();
-
-            categories.entry(href.to_owned()).or_insert(name);
-        }
-    }
-
-    Ok(categories.drain().collect())
-}
-
-async fn subcategories(categories: &[(String, String)]) -> Result<Vec<Subcategory>, anyhow::Error> {
+async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyhow::Error> {
     futures::stream::iter(categories)
-        .map(|(url, category)| async move {
-            let body = reqwest::get(url).await?.text().await?;
-            println!("get: {}", url);
+        .map(|category| async move {
+            let body = reqwest::get(&category.url).await?.text().await?;
+            println!("get: {}", &category.url);
             let content = Html::parse_document(&body);
 
             let selector = Selector::parse("div.post-body h1.favourite-posts-title a").unwrap();
@@ -100,7 +73,7 @@ async fn subcategories(categories: &[(String, String)]) -> Result<Vec<Subcategor
 
                 let subcategory = Subcategory{
                     name: name,
-                    category: category.clone(),
+                    category: category.name.clone(),
                     kind: kind,
                 };
                 subcategories.push(subcategory);
@@ -201,7 +174,10 @@ async fn main() -> Result<(), anyhow::Error> {
         serde_json::from_str(&content).unwrap()
     } else {
         println!("Loading cassettes from upstream");
-        let categories = categories().await?;
+        let body = reqwest::get("https://kasetophono.com").await?.text().await?;
+        let content = Html::parse_document(&body);
+
+        let categories = kasetophono::scrape_categories(content).unwrap();
 
         let subcategories = subcategories(&categories).await?;
 
