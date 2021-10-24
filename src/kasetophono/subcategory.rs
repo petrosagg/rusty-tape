@@ -21,7 +21,8 @@ pub enum SubcategoryKind {
 }
 
 /// Extracts the list of categories from the frontpage of kasetophono.com
-pub fn scrape_subcategories(content: Html) -> Result<Vec<Subcategory>, anyhow::Error> {
+pub fn scrape_subcategories(document: &str) -> Result<Vec<Subcategory>, anyhow::Error> {
+    let content = Html::parse_document(&document);
     let selector = Selector::parse("div.post-body h1.favourite-posts-title a").unwrap();
 
     let mut subcategories = vec![];
@@ -51,8 +52,7 @@ mod test {
     #[test]
     fn correct_parse() {
         let body = include_str!("../../assets/category.html");
-        let content = Html::parse_document(&body);
-        let subcategories = scrape_subcategories(content).unwrap();
+        let subcategories = scrape_subcategories(&body).unwrap();
 
         let label_subcategory = Subcategory {
             name: "Βαλκάνια".into(),

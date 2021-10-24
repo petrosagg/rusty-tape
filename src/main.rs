@@ -35,9 +35,7 @@ async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyh
         .map(|category| async move {
             let body = reqwest::get(&category.url).await?.text().await?;
             println!("get: {}", &category.url);
-            let content = Html::parse_document(&body);
-
-            Ok(kasetophono::scrape_subcategories(content).unwrap())
+            Ok(kasetophono::scrape_subcategories(&body).unwrap())
         })
         .buffer_unordered(5)
         .try_fold(vec![], |mut v, s| {
@@ -133,9 +131,8 @@ async fn main() -> Result<(), anyhow::Error> {
     } else {
         println!("Loading cassettes from upstream");
         let body = reqwest::get("https://kasetophono.com").await?.text().await?;
-        let content = Html::parse_document(&body);
 
-        let categories = kasetophono::scrape_categories(content).unwrap();
+        let categories = kasetophono::scrape_categories(&body).unwrap();
 
         let subcategories = subcategories(&categories).await?;
 

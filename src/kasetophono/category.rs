@@ -11,11 +11,12 @@ pub struct Category {
 }
 
 /// Extracts the list of categories from the frontpage of kasetophono.com
-pub fn scrape_categories(content: Html) -> Result<Vec<Category>, anyhow::Error> {
+pub fn scrape_categories(document: &str) -> Result<Vec<Category>, anyhow::Error> {
     // We're looking for this kind of elements:
     // <ul id='nav2'>
     // <li><a href='https://www.kasetophono.com/p/blog-page_28.html'>Ξενα</a></li>
     // <li><a href='http://www.kasetophono.com/search/label/Playlist'>_Νέες</a></li>
+    let content = Html::parse_document(&document);
     let category_selector = Selector::parse("ul#nav2 li a").unwrap();
 
     let mut categories = vec![];
@@ -67,8 +68,7 @@ mod test {
     #[test]
     fn correct_parse() {
         let body = include_str!("../../assets/frontpage.html");
-        let content = Html::parse_document(&body);
-        let categories = scrape_categories(content).unwrap();
+        let categories = scrape_categories(&body).unwrap();
 
         // check we chose the correct name for the double category
         let double_sub = Category {
