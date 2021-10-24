@@ -1,15 +1,10 @@
-use std::process::Command;
-use std::os::unix::fs::symlink;
-use std::fs::{self, File};
-use std::path::Path;
+use std::fs::File;
 use std::io::prelude::*;
 use std::sync::Arc;
 use std::collections::HashMap;
 use serde::{Serialize, Deserialize};
 use serde_json::Value;
 use scraper::{Html, Selector};
-use percent_encoding::percent_decode_str;
-use rayon::prelude::*;
 use futures::stream::{Stream, StreamExt, TryStreamExt};
 use std::future;
 use warp::Filter;
@@ -17,10 +12,9 @@ use uuid::Uuid;
 use std::sync::Mutex;
 use std::process::Child;
 
-mod audio;
 mod kasetophono;
 
-use kasetophono::Category;
+use kasetophono::{Category, Subcategory, SubcategoryKind};
 
 #[derive(Debug,Serialize,Deserialize)]
 pub struct Cassette {
@@ -36,19 +30,6 @@ pub struct Cassette {
     pub created_at: String,
 }
 
-#[derive(Clone,Debug,Serialize,Deserialize)]
-pub struct Subcategory {
-    name: String,
-    category: String,
-    kind: SubcategoryKind,
-}
-
-#[derive(Clone,Debug,Serialize,Deserialize)]
-enum SubcategoryKind {
-    Label(String),
-    Cassette(String),
-}
-
 async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyhow::Error> {
     futures::stream::iter(categories)
         .map(|category| async move {
@@ -56,30 +37,7 @@ async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyh
             println!("get: {}", &category.url);
             let content = Html::parse_document(&body);
 
-            let selector = Selector::parse("div.post-body h1.favourite-posts-title a").unwrap();
-
-            let mut subcategories = vec![];
-
-            for element in content.select(&selector) {
-                let name = element.text().next().unwrap().trim().to_string();
-                let href = element.value().attr("href").unwrap();
-
-                let kind = if href.contains("/label/") {
-                    let label_raw = href.split_at(href.rfind('/').unwrap() + 1).1;
-                    SubcategoryKind::Label(percent_decode_str(label_raw).decode_utf8().unwrap().into_owned())
-                } else {
-                    SubcategoryKind::Cassette(href.to_string())
-                };
-
-                let subcategory = Subcategory{
-                    name: name,
-                    category: category.name.clone(),
-                    kind: kind,
-                };
-                subcategories.push(subcategory);
-            }
-
-            Ok(subcategories)
+            Ok(kasetophono::scrape_subcategories(content).unwrap())
         })
         .buffer_unordered(5)
         .try_fold(vec![], |mut v, s| {
@@ -206,7 +164,7 @@ async fn main() -> Result<(), anyhow::Error> {
             println!("playing {}", &cassette.name);
             let mut state = play_state.lock().unwrap();
             if let Some(mut handle) = state.take() {
-                handle.kill();
+                handle.kill().unwrap();
             }
             let handle = std::process::Command::new("mpv")
                 .args(&["--no-video", &cassette.yt_url])
@@ -222,7 +180,7 @@ async fn main() -> Result<(), anyhow::Error> {
             println!("stopping");
             let mut state = stop_state.lock().unwrap();
             if let Some(mut handle) = state.take() {
-                handle.kill();
+                handle.kill().unwrap();
             }
             format!("Killed")
         });

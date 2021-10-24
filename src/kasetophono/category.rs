@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::HashSet;
 use scraper::{Html, Selector};
 
 /// A top level category of kasetophono
