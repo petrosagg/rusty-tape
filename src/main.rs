@@ -1,7 +1,3 @@
-use futures::stream::{Stream, StreamExt, TryStreamExt};
-use scraper::{Html, Selector};
-use serde::{Deserialize, Serialize};
-use serde_json::Value;
 use std::collections::HashMap;
 use std::fs::File;
 use std::future;
@@ -9,6 +5,12 @@ use std::io::prelude::*;
 use std::process::Child;
 use std::sync::Arc;
 use std::sync::Mutex;
+
+use futures::stream::{Stream, StreamExt, TryStreamExt};
+use futures::TryFutureExt;
+use scraper::{Html, Selector};
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
 use uuid::Uuid;
 use warp::Filter;
 
@@ -32,12 +34,12 @@ pub struct Cassette {
 
 async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyhow::Error> {
     let mut responses = futures::stream::iter(categories)
-        .map(|c| async move { reqwest::get(&c.url).await.unwrap().text().await })
+        .map(|c| reqwest::get(&c.url).and_then(|r| r.text()))
         .buffer_unordered(5);
 
     let mut subcategories = vec![];
-    while let Some(result) = responses.next().await {
-        let subs = kasetophono::scrape_subcategories(&result?)?;
+    while let Some(response) = responses.try_next().await? {
+        let subs = kasetophono::scrape_subcategories(&response)?;
         subcategories.extend(subs);
     }
     Ok(subcategories)
