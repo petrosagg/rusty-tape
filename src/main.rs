@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 use std::fs::File;
-use std::future;
 use std::io::prelude::*;
 use std::process::Child;
 use std::sync::Arc;
@@ -36,18 +35,20 @@ async fn cassettes(
         .map(|page| async move {
             let url = format!(
                 "https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}&max-results={}",
-                page,
+                page + 1,
                 PAGE_SIZE,
             );
             reqwest::get(&url).and_then(|r| r.text()).await
         })
-        .buffer_unordered(5)
-        .try_take_while(|page| future::ready(Ok(!page.is_empty())));
+        .buffer_unordered(5);
 
     let mut cassettes = HashMap::new();
     while let Some(response) = responses.try_next().await? {
         let document: BloggerDocument = serde_json::from_str(&response).unwrap();
         let cs = kasetophono::scrape_cassettes(document, subcategories)?;
+        if cs.is_empty() {
+            break;
+        }
         cassettes.extend(cs);
     }
     Ok(cassettes)
@@ -55,13 +56,15 @@ async fn cassettes(
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
+    env_logger::init();
+
     let cassettes: HashMap<Uuid, Cassette> =
         if let Ok(content) = std::fs::read_to_string("metadata.json") {
             println!("Loading cassettes from disk");
             serde_json::from_str(&content).unwrap()
         } else {
             println!("Loading cassettes from upstream");
-            let body = reqwest::get("https://kasetophono.com")
+            let body = reqwest::get("https://www.kasetophono.com")
                 .await?
                 .text()
                 .await?;

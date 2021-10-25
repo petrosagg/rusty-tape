@@ -36,6 +36,7 @@ pub struct Feed {
     pub open_search_start_index: OpenSearchStartIndex,
     #[serde(rename = "openSearch$itemsPerPage")]
     pub open_search_items_per_page: OpenSearchItemsPerPage,
+    #[serde(default)]
     pub entry: Vec<Entry>,
 }
 
