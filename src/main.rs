@@ -6,30 +6,14 @@ use std::process::Child;
 use std::sync::Arc;
 use std::sync::Mutex;
 
-use futures::stream::{Stream, StreamExt, TryStreamExt};
+use futures::stream::{StreamExt, TryStreamExt};
 use futures::TryFutureExt;
-use scraper::{Html, Selector};
-use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use warp::Filter;
 
 mod kasetophono;
 
-use kasetophono::{BloggerDocument, Category, Subcategory, SubcategoryKind};
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Cassette {
-    pub uuid: Uuid,
-    pub name: String,
-    pub safe_name: String,
-    pub path: String,
-    pub url: String,
-    pub yt_url: String,
-    pub image_url: Option<String>,
-    pub labels: Vec<String>,
-    pub subcategories: Vec<Subcategory>,
-    pub created_at: String,
-}
+use kasetophono::{BloggerDocument, Cassette, Category, Subcategory};
 
 async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyhow::Error> {
     let mut responses = futures::stream::iter(categories)
@@ -44,102 +28,29 @@ async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyh
     Ok(subcategories)
 }
 
-async fn cassette_range(
+async fn cassettes(
     subcategories: &[Subcategory],
-    offset: u64,
-    len: u64,
-) -> Result<Vec<(Uuid, Cassette)>, anyhow::Error> {
-    assert!(len <= 25);
-    let mut cassettes = vec![];
+) -> Result<HashMap<Uuid, Cassette>, anyhow::Error> {
+    const PAGE_SIZE: usize = 25;
+    let mut responses = futures::stream::iter((0..).step_by(PAGE_SIZE))
+        .map(|page| async move {
+            let url = format!(
+                "https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}&max-results={}",
+                page,
+                PAGE_SIZE,
+            );
+            reqwest::get(&url).and_then(|r| r.text()).await
+        })
+        .buffer_unordered(5)
+        .try_take_while(|page| future::ready(Ok(!page.is_empty())));
 
-    let iframe_selector = Selector::parse("iframe").unwrap();
-    let image_selector = Selector::parse("img").unwrap();
-
-    let url = format!(
-        "https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}&max-results={}",
-        offset + 1,
-        len
-    );
-    println!("get: {}", url);
-    let body = reqwest::get(&url).await?.text().await?;
-
-    let document: BloggerDocument = serde_json::from_str(&body).unwrap();
-
-    for entry in document.feed.entry {
-        let content = Html::parse_fragment(&entry.content.t);
-        let url = content
-            .select(&iframe_selector)
-            .next()
-            .and_then(|e| e.value().attr("src"));
-
-        if let Some(yt_url) = url.filter(|u| u.contains("youtube.com") && u.contains("list")) {
-            let name = entry.title.t.trim();
-            // Some cassettes contain slashes in their names
-            let safe_name = name.replace('/', "-");
-            let url = entry.link[2].href.clone();
-
-            let uuid = Uuid::new_v5(&Uuid::NAMESPACE_URL, url.as_bytes());
-
-            // Extract year and date from URL like this: https://www.kasetophono.com/2019/01/nero.html
-            let mut path: Vec<&str> = url
-                .split('/')
-                .rev()
-                .skip(1)
-                .take(2)
-                .chain(Some("cassettes"))
-                .collect();
-            path.reverse();
-            path.push(&safe_name);
-            let path = path.join("/");
-
-            let published = entry.published.t;
-
-            let labels = entry
-                .category
-                .into_iter()
-                .map(|c| c.term)
-                .collect::<Vec<_>>();
-
-            let subcategories = subcategories
-                .iter()
-                .cloned()
-                .filter(|sc| match &sc.kind {
-                    SubcategoryKind::Label(l) => labels.contains(l),
-                    SubcategoryKind::Cassette(u) => url == *u,
-                })
-                .collect();
-
-            let image = content
-                .select(&image_selector)
-                .next()
-                .and_then(|e| e.value().attr("src"));
-
-            let cassette = Cassette {
-                uuid,
-                name: name.to_string(),
-                safe_name: safe_name,
-                path: path,
-                subcategories: subcategories,
-                labels: labels,
-                image_url: image.map(|s| s.to_string()),
-                url: url,
-                yt_url: yt_url.to_string(),
-                created_at: published.to_string(),
-            };
-
-            cassettes.push((uuid.clone(), cassette));
-        }
+    let mut cassettes = HashMap::new();
+    while let Some(response) = responses.try_next().await? {
+        let document: BloggerDocument = serde_json::from_str(&response).unwrap();
+        let cs = kasetophono::scrape_cassettes(document, subcategories)?;
+        cassettes.extend(cs);
     }
     Ok(cassettes)
-}
-
-fn cassettes(
-    subcategories: &[Subcategory],
-) -> impl Stream<Item = Result<Vec<(Uuid, Cassette)>, anyhow::Error>> + '_ {
-    futures::stream::iter(0..)
-        .map(move |page| cassette_range(subcategories, page * 25, 25))
-        .buffer_unordered(5)
-        .try_take_while(|page| future::ready(Ok(!page.is_empty())))
 }
 
 #[tokio::main]
@@ -156,16 +67,8 @@ async fn main() -> Result<(), anyhow::Error> {
                 .await?;
 
             let categories = kasetophono::scrape_categories(&body).unwrap();
-
             let subcategories = subcategories(&categories).await?;
-
-            let cassette_stream = cassettes(&subcategories);
-            tokio::pin!(cassette_stream);
-
-            let mut cassettes = HashMap::new();
-            while let Some(Ok(page)) = cassette_stream.next().await {
-                cassettes.extend(page);
-            }
+            let cassettes = cassettes(&subcategories).await?;
 
             let buf = serde_json::to_string_pretty(&cassettes).unwrap();
             let mut file = File::create("metadata.json").unwrap();
