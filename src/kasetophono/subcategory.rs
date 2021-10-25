@@ -1,6 +1,6 @@
 use percent_encoding::percent_decode_str;
 use scraper::{Html, Selector};
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
 /// A subcategory of kasetophono
 #[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
@@ -33,7 +33,12 @@ pub fn scrape_subcategories(document: &str) -> Result<Vec<Subcategory>, anyhow::
 
         let kind = if href.contains("/label/") {
             let label_raw = href.split_at(href.rfind('/').unwrap() + 1).1;
-            SubcategoryKind::Label(percent_decode_str(label_raw).decode_utf8().unwrap().into_owned())
+            SubcategoryKind::Label(
+                percent_decode_str(label_raw)
+                    .decode_utf8()
+                    .unwrap()
+                    .into_owned(),
+            )
         } else {
             SubcategoryKind::Cassette(href.to_string())
         };
@@ -43,7 +48,6 @@ pub fn scrape_subcategories(document: &str) -> Result<Vec<Subcategory>, anyhow::
 
     Ok(subcategories)
 }
-
 
 #[cfg(test)]
 mod test {

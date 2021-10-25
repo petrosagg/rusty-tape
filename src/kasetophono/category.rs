@@ -1,8 +1,8 @@
-use std::collections::HashSet;
 use scraper::{Html, Selector};
+use std::collections::HashSet;
 
 /// A top level category of kasetophono
-#[derive(Debug,PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct Category {
     /// The name of the category
     pub name: String,
@@ -41,7 +41,12 @@ pub fn scrape_categories(document: &str) -> Result<Vec<Category>, anyhow::Error>
         let url = element.value().attr("href").unwrap().to_owned();
         if url.contains("/p/") && seen_urls.insert(url.clone()) {
             // It's unclear why but some names begin with an underscore, so trim it
-            let raw_name = element.text().next().unwrap().trim().trim_start_matches('_');
+            let raw_name = element
+                .text()
+                .next()
+                .unwrap()
+                .trim()
+                .trim_start_matches('_');
 
             // Category names have inconsistent capitalization, so we normalize them here
             let mut name = String::with_capacity(raw_name.len());
@@ -51,7 +56,7 @@ pub fn scrape_categories(document: &str) -> Result<Vec<Category>, anyhow::Error>
             match name.pop() {
                 Some('σ') => name.push('ς'),
                 Some(c) => name.push(c),
-                None => {},
+                None => {}
             }
 
             categories.push(Category { name, url });

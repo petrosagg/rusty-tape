@@ -1,22 +1,22 @@
-use std::fs::File;
-use std::io::prelude::*;
-use std::sync::Arc;
-use std::collections::HashMap;
-use serde::{Serialize, Deserialize};
-use serde_json::Value;
-use scraper::{Html, Selector};
 use futures::stream::{Stream, StreamExt, TryStreamExt};
+use scraper::{Html, Selector};
+use serde::{Deserialize, Serialize};
+use serde_json::Value;
+use std::collections::HashMap;
+use std::fs::File;
 use std::future;
-use warp::Filter;
-use uuid::Uuid;
-use std::sync::Mutex;
+use std::io::prelude::*;
 use std::process::Child;
+use std::sync::Arc;
+use std::sync::Mutex;
+use uuid::Uuid;
+use warp::Filter;
 
 mod kasetophono;
 
 use kasetophono::{Category, Subcategory, SubcategoryKind};
 
-#[derive(Debug,Serialize,Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Cassette {
     pub uuid: Uuid,
     pub name: String,
@@ -43,14 +43,22 @@ async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyh
     Ok(subcategories)
 }
 
-async fn cassette_range(subcategories: &[Subcategory], offset: u64, len: u64) -> Result<Vec<(Uuid, Cassette)>, anyhow::Error> {
+async fn cassette_range(
+    subcategories: &[Subcategory],
+    offset: u64,
+    len: u64,
+) -> Result<Vec<(Uuid, Cassette)>, anyhow::Error> {
     assert!(len <= 25);
     let mut cassettes = vec![];
 
     let iframe_selector = Selector::parse("iframe").unwrap();
     let image_selector = Selector::parse("img").unwrap();
 
-    let url = format!("https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}&max-results={}", offset + 1, len);
+    let url = format!(
+        "https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}&max-results={}",
+        offset + 1,
+        len
+    );
     println!("get: {}", url);
     let body = reqwest::get(&url).await?.text().await?;
 
@@ -59,7 +67,10 @@ async fn cassette_range(subcategories: &[Subcategory], offset: u64, len: u64) ->
     if let Some(entries) = v["feed"]["entry"].as_array() {
         for entry in entries {
             let content = Html::parse_fragment(entry["content"]["$t"].as_str().unwrap());
-            let url = content.select(&iframe_selector).next().and_then(|e| e.value().attr("src"));
+            let url = content
+                .select(&iframe_selector)
+                .next()
+                .and_then(|e| e.value().attr("src"));
 
             if let Some(yt_url) = url.filter(|u| u.contains("youtube.com") && u.contains("list")) {
                 let name = entry["title"]["$t"].as_str().unwrap().trim();
@@ -70,7 +81,13 @@ async fn cassette_range(subcategories: &[Subcategory], offset: u64, len: u64) ->
                 let uuid = Uuid::new_v5(&Uuid::NAMESPACE_URL, url.as_bytes());
 
                 // Extract year and date from URL like this: https://www.kasetophono.com/2019/01/nero.html
-                let mut path: Vec<&str> = url.split('/').rev().skip(1).take(2).chain(Some("cassettes")).collect();
+                let mut path: Vec<&str> = url
+                    .split('/')
+                    .rev()
+                    .skip(1)
+                    .take(2)
+                    .chain(Some("cassettes"))
+                    .collect();
                 path.reverse();
                 path.push(&safe_name);
                 let path = path.join("/");
@@ -84,18 +101,24 @@ async fn cassette_range(subcategories: &[Subcategory], offset: u64, len: u64) ->
                             .filter_map(|c| c["term"].as_str())
                             .map(|s| s.to_string())
                             .collect()
-                    }).unwrap_or(vec![]);
+                    })
+                    .unwrap_or(vec![]);
 
-                let subcategories = subcategories.iter().cloned().filter(|sc| {
-                    match &sc.kind {
+                let subcategories = subcategories
+                    .iter()
+                    .cloned()
+                    .filter(|sc| match &sc.kind {
                         SubcategoryKind::Label(l) => labels.contains(l),
                         SubcategoryKind::Cassette(u) => url == *u,
-                    }
-                }).collect();
+                    })
+                    .collect();
 
-                let image = content.select(&image_selector).next().and_then(|e| e.value().attr("src"));
+                let image = content
+                    .select(&image_selector)
+                    .next()
+                    .and_then(|e| e.value().attr("src"));
 
-                let cassette = Cassette{
+                let cassette = Cassette {
                     uuid,
                     name: name.to_string(),
                     safe_name: safe_name,
@@ -115,7 +138,9 @@ async fn cassette_range(subcategories: &[Subcategory], offset: u64, len: u64) ->
     Ok(cassettes)
 }
 
-fn cassettes(subcategories: &[Subcategory]) -> impl Stream<Item=Result<Vec<(Uuid, Cassette)>, anyhow::Error>> + '_ {
+fn cassettes(
+    subcategories: &[Subcategory],
+) -> impl Stream<Item = Result<Vec<(Uuid, Cassette)>, anyhow::Error>> + '_ {
     futures::stream::iter(0..)
         .map(move |page| cassette_range(subcategories, page * 25, 25))
         .buffer_unordered(5)
@@ -124,72 +149,73 @@ fn cassettes(subcategories: &[Subcategory]) -> impl Stream<Item=Result<Vec<(Uuid
 
 #[tokio::main]
 async fn main() -> Result<(), anyhow::Error> {
-    let cassettes: HashMap<Uuid, Cassette> = if let Ok(content) = std::fs::read_to_string("metadata.json") {
-        println!("Loading cassettes from disk");
-        serde_json::from_str(&content).unwrap()
-    } else {
-        println!("Loading cassettes from upstream");
-        let body = reqwest::get("https://kasetophono.com").await?.text().await?;
+    let cassettes: HashMap<Uuid, Cassette> =
+        if let Ok(content) = std::fs::read_to_string("metadata.json") {
+            println!("Loading cassettes from disk");
+            serde_json::from_str(&content).unwrap()
+        } else {
+            println!("Loading cassettes from upstream");
+            let body = reqwest::get("https://kasetophono.com")
+                .await?
+                .text()
+                .await?;
 
-        let categories = kasetophono::scrape_categories(&body).unwrap();
+            let categories = kasetophono::scrape_categories(&body).unwrap();
 
-        let subcategories = subcategories(&categories).await?;
+            let subcategories = subcategories(&categories).await?;
 
-        let cassette_stream = cassettes(&subcategories);
-        tokio::pin!(cassette_stream);
+            let cassette_stream = cassettes(&subcategories);
+            tokio::pin!(cassette_stream);
 
-        let mut cassettes = HashMap::new();
-        while let Some(Ok(page)) = cassette_stream.next().await {
-            cassettes.extend(page);
-        }
+            let mut cassettes = HashMap::new();
+            while let Some(Ok(page)) = cassette_stream.next().await {
+                cassettes.extend(page);
+            }
 
-        let buf = serde_json::to_string_pretty(&cassettes).unwrap();
-        let mut file = File::create("metadata.json").unwrap();
-        file.write_all(buf.as_bytes()).unwrap();
-        cassettes
-    };
+            let buf = serde_json::to_string_pretty(&cassettes).unwrap();
+            let mut file = File::create("metadata.json").unwrap();
+            file.write_all(buf.as_bytes()).unwrap();
+            cassettes
+        };
 
     let cassettes = Arc::new(cassettes);
     let state: Arc<Mutex<Option<Child>>> = Arc::new(Mutex::new(None));
 
     let play_state = Arc::clone(&state);
-    let play = warp::path!("api" / "play" / Uuid)
-        .map(move |uuid: Uuid| {
-            let cassette = &cassettes[&uuid];
+    let play = warp::path!("api" / "play" / Uuid).map(move |uuid: Uuid| {
+        let cassette = &cassettes[&uuid];
 
-            println!("playing {}", &cassette.name);
-            let mut state = play_state.lock().unwrap();
-            if let Some(mut handle) = state.take() {
-                handle.kill().unwrap();
-            }
-            let handle = std::process::Command::new("mpv")
-                .args(&["--no-video", &cassette.yt_url])
-                .spawn()
-                .unwrap();
-            *state = Some(handle);
-            format!("{:?}", &cassette.name)
-        });
+        println!("playing {}", &cassette.name);
+        let mut state = play_state.lock().unwrap();
+        if let Some(mut handle) = state.take() {
+            handle.kill().unwrap();
+        }
+        let handle = std::process::Command::new("mpv")
+            .args(&["--no-video", &cassette.yt_url])
+            .spawn()
+            .unwrap();
+        *state = Some(handle);
+        format!("{:?}", &cassette.name)
+    });
 
     let stop_state = Arc::clone(&state);
-    let stop = warp::path!("api" / "stop")
-        .map(move || {
-            println!("stopping");
-            let mut state = stop_state.lock().unwrap();
-            if let Some(mut handle) = state.take() {
-                handle.kill().unwrap();
-            }
-            format!("Killed")
-        });
+    let stop = warp::path!("api" / "stop").map(move || {
+        println!("stopping");
+        let mut state = stop_state.lock().unwrap();
+        if let Some(mut handle) = state.take() {
+            handle.kill().unwrap();
+        }
+        format!("Killed")
+    });
 
     let cassettes = warp::path!("api" / "cassettes")
         .and(warp::fs::file("metadata.json"))
         .with(warp::compression::gzip());
 
     let routes = warp::get().and(
-        play
-        .or(stop)
-        .or(cassettes)
-        .or(warp::fs::dir("frontend/dist"))
+        play.or(stop)
+            .or(cassettes)
+            .or(warp::fs::dir("frontend/dist")),
     );
 
     warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
