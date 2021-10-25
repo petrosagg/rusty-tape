@@ -31,17 +31,16 @@ pub struct Cassette {
 }
 
 async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyhow::Error> {
-    futures::stream::iter(categories)
-        .map(|category| async move {
-            let body = reqwest::get(&category.url).await?.text().await?;
-            println!("get: {}", &category.url);
-            Ok(kasetophono::scrape_subcategories(&body).unwrap())
-        })
-        .buffer_unordered(5)
-        .try_fold(vec![], |mut v, s| {
-            v.extend(s);
-            future::ready(Ok(v))
-        }).await
+    let mut responses = futures::stream::iter(categories)
+        .map(|c| async move { reqwest::get(&c.url).await.unwrap().text().await })
+        .buffer_unordered(5);
+
+    let mut subcategories = vec![];
+    while let Some(result) = responses.next().await {
+        let subs = kasetophono::scrape_subcategories(&result?)?;
+        subcategories.extend(subs);
+    }
+    Ok(subcategories)
 }
 
 async fn cassette_range(subcategories: &[Subcategory], offset: u64, len: u64) -> Result<Vec<(Uuid, Cassette)>, anyhow::Error> {
