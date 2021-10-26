@@ -2,7 +2,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct BloggerDocument {
+pub struct Document {
     pub version: String,
     pub encoding: String,
     pub feed: Feed,

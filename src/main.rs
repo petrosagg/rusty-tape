@@ -12,7 +12,7 @@ use warp::Filter;
 
 mod kasetophono;
 
-use kasetophono::{BloggerDocument, Cassette, Category, Subcategory};
+use kasetophono::{blogger, Cassette, Category, Subcategory};
 
 async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyhow::Error> {
     let mut responses = futures::stream::iter(categories)
@@ -44,12 +44,19 @@ async fn cassettes(
 
     let mut cassettes = HashMap::new();
     while let Some(response) = responses.try_next().await? {
-        let document: BloggerDocument = serde_json::from_str(&response).unwrap();
-        let cs = kasetophono::scrape_cassettes(document, subcategories)?;
-        if cs.is_empty() {
+        let document: blogger::Document = serde_json::from_str(&response).unwrap();
+
+        let mut empty = true;
+        for entry in document.feed.entry {
+            if let Some(mut cassette) = Cassette::try_from_entry(entry) {
+                empty = false;
+                cassette.fill_subcategories(subcategories);
+                cassettes.insert(cassette.uuid.clone(), cassette);
+            }
+        }
+        if empty {
             break;
         }
-        cassettes.extend(cs);
     }
     Ok(cassettes)
 }
