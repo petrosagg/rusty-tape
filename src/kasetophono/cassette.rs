@@ -1,6 +1,7 @@
 use scraper::{Html, Selector};
 use serde::{Deserialize, Serialize};
 use uuid::Uuid;
+use youtube_dl::{YoutubeDl, YoutubeDlOutput};
 
 use crate::kasetophono::{blogger, Subcategory, SubcategoryKind};
 
@@ -20,7 +21,11 @@ pub struct Cassette {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Video;
+pub struct Video {
+    id: String,
+    title: String,
+    duration: Option<u64>,
+}
 
 impl Cassette {
     pub fn try_from_entry(entry: blogger::Entry) -> Option<Self> {
@@ -91,5 +96,51 @@ impl Cassette {
             })
             .cloned()
             .collect();
+    }
+
+    pub fn fill_videos(&mut self) {
+        let output = YoutubeDl::new(&self.yt_url)
+            .flat_playlist(true)
+            .run()
+            .unwrap();
+        if let YoutubeDlOutput::Playlist(playlist) = output {
+            self.videos = playlist
+                .entries
+                .into_iter()
+                .flatten()
+                .map(|entry| {
+                    let duration = entry.duration.and_then(|d| d.as_f64()).map(|d| d as u64);
+                    Video {
+                        id: entry.id,
+                        title: entry.title,
+                        duration,
+                    }
+                })
+                .collect();
+        }
+    }
+}
+
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn youtube_dl() {
+        let mut c = Cassette {
+            uuid: Default::default(),
+            name: Default::default(),
+            safe_name: Default::default(),
+            path: Default::default(),
+            subcategories: vec![],
+            labels: Default::default(),
+            image_url: Default::default(),
+            url: Default::default(),
+            yt_url: "https://www.youtube.com/watch?v=va-EudnxtAc&list=PLSRDGXudTSm8FuEJEeix05FqOVCMNvlJI".to_string(),
+            videos: vec![],
+            created_at: Default::default(),
+        };
+
+        c.fill_videos();
     }
 }
