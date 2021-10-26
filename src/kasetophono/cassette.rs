@@ -13,7 +13,7 @@ pub struct Cassette {
     pub path: String,
     pub url: String,
     pub yt_url: String,
-    pub videos: Vec<Video>,
+    pub videos: Vec<Song>,
     pub image_url: Option<String>,
     pub labels: Vec<String>,
     pub subcategories: Vec<Subcategory>,
@@ -21,7 +21,7 @@ pub struct Cassette {
 }
 
 #[derive(Debug, Serialize, Deserialize)]
-pub struct Video {
+pub struct Song {
     id: String,
     title: String,
     duration: Option<u64>,
@@ -98,11 +98,11 @@ impl Cassette {
             .collect();
     }
 
-    pub fn fill_videos(&mut self) {
+    pub fn fill_songs(&mut self) -> Result<(), anyhow::Error> {
         let output = YoutubeDl::new(&self.yt_url)
             .flat_playlist(true)
-            .run()
-            .unwrap();
+            .run()?;
+
         if let YoutubeDlOutput::Playlist(playlist) = output {
             self.videos = playlist
                 .entries
@@ -110,7 +110,7 @@ impl Cassette {
                 .flatten()
                 .map(|entry| {
                     let duration = entry.duration.and_then(|d| d.as_f64()).map(|d| d as u64);
-                    Video {
+                    Song {
                         id: entry.id,
                         title: entry.title,
                         duration,
@@ -118,6 +118,7 @@ impl Cassette {
                 })
                 .collect();
         }
+        Ok(())
     }
 }
 

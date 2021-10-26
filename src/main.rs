@@ -5,8 +5,9 @@ use std::process::Child;
 use std::sync::Arc;
 use std::sync::Mutex;
 
-use futures::stream::{StreamExt, TryStreamExt};
+use futures::stream::{self, StreamExt, TryStreamExt};
 use futures::TryFutureExt;
+use log::{debug, info};
 use uuid::Uuid;
 use warp::Filter;
 
@@ -14,8 +15,10 @@ mod kasetophono;
 
 use kasetophono::{blogger, Cassette, Category, Subcategory};
 
-async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyhow::Error> {
-    let mut responses = futures::stream::iter(categories)
+type Result<T> = std::result::Result<T, anyhow::Error>;
+
+async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>> {
+    let mut responses = stream::iter(categories)
         .map(|c| reqwest::get(&c.url).and_then(|r| r.text()))
         .buffer_unordered(5);
 
@@ -27,18 +30,17 @@ async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>, anyh
     Ok(subcategories)
 }
 
-async fn cassettes(
-    subcategories: &[Subcategory],
-) -> Result<HashMap<Uuid, Cassette>, anyhow::Error> {
+async fn cassettes(subcategories: &[Subcategory]) -> Result<HashMap<Uuid, Cassette>> {
     const PAGE_SIZE: usize = 25;
-    let mut responses = futures::stream::iter((0..).step_by(PAGE_SIZE))
-        .map(|page| async move {
-            let url = format!(
-                "https://www.kasetophono.com/feeds/posts/default?alt=json&start-index={}&max-results={}",
-                page + 1,
-                PAGE_SIZE,
-            );
-            reqwest::get(&url).and_then(|r| r.text()).await
+    let mut responses = stream::iter((1..).step_by(PAGE_SIZE))
+        .map(|page| {
+            reqwest::get(format!(
+                "https://www.kasetophono.com/feeds/posts/default?alt=json\
+                &start-index={}\
+                &max-results={}",
+                page, PAGE_SIZE,
+            ))
+            .and_then(|r| r.text())
         })
         .buffer_unordered(5);
 
@@ -58,19 +60,36 @@ async fn cassettes(
             break;
         }
     }
+
+    let total = cassettes.len();
+    debug!("fetched {} cassettes", total);
+
+    let mut i = 0;
+    cassettes.retain(move |_uuid, cassette| {
+        i += 1;
+        debug!("fetching songs ({}/{}): {:?}", i, total, &cassette.name);
+        match cassette.fill_songs() {
+            Ok(()) => true,
+            Err(e) => {
+                debug!("discarding cassette: {:?}: {}",&cassette.name, e);
+                false
+            }
+        }
+    });
+
     Ok(cassettes)
 }
 
 #[tokio::main]
-async fn main() -> Result<(), anyhow::Error> {
+async fn main() -> Result<()> {
     env_logger::init();
 
     let cassettes: HashMap<Uuid, Cassette> =
         if let Ok(content) = std::fs::read_to_string("metadata.json") {
-            println!("Loading cassettes from disk");
+            info!("Loading cassettes from disk");
             serde_json::from_str(&content).unwrap()
         } else {
-            println!("Loading cassettes from upstream");
+            info!("Loading cassettes from upstream");
             let body = reqwest::get("https://www.kasetophono.com")
                 .await?
                 .text()

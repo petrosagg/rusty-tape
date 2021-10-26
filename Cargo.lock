@@ -2664,6 +2664,7 @@ dependencies = [
  "env_logger",
  "futures",
  "iced",
+ "log",
  "percent-encoding",
  "rayon",
  "reqwest",
