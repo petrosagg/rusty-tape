@@ -36,7 +36,7 @@ impl Cassette {
         if let Some(yt_url) = url.filter(|u| u.contains("youtube.com") && u.contains("list")) {
             let name = entry.title.t.trim();
             // Some cassettes contain slashes in their names
-            let safe_name = name.replace('/', "-").to_string();
+            let safe_name = name.replace('/', "-");
             let url = entry.link[2].href.clone();
 
             let uuid = Uuid::new_v5(&Uuid::NAMESPACE_URL, url.as_bytes());
@@ -53,8 +53,6 @@ impl Cassette {
             path.push(&safe_name);
             let path = path.join("/");
 
-            let published = entry.published.t;
-
             let labels = entry
                 .category
                 .into_iter()
@@ -69,15 +67,15 @@ impl Cassette {
             Some(Cassette {
                 uuid,
                 name: name.to_string(),
-                safe_name: safe_name,
-                path: path,
+                safe_name,
+                path,
                 subcategories: vec![],
-                labels: labels,
+                labels,
                 image_url: image.map(|s| s.to_string()),
-                url: url,
+                url,
                 yt_url: yt_url.to_string(),
                 videos: vec![],
-                created_at: published.to_string(),
+                created_at: entry.published.t,
             })
         } else {
             None

@@ -51,7 +51,7 @@ async fn cassettes(
             if let Some(mut cassette) = Cassette::try_from_entry(entry) {
                 empty = false;
                 cassette.fill_subcategories(subcategories);
-                cassettes.insert(cassette.uuid.clone(), cassette);
+                cassettes.insert(cassette.uuid, cassette);
             }
         }
         if empty {
@@ -113,7 +113,7 @@ async fn main() -> Result<(), anyhow::Error> {
         if let Some(mut handle) = state.take() {
             handle.kill().unwrap();
         }
-        format!("Killed")
+        "Killed"
     });
 
     let cassettes = warp::path!("api" / "cassettes")

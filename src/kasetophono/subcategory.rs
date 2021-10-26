@@ -22,7 +22,7 @@ pub enum SubcategoryKind {
 
 /// Extracts the list of categories from the frontpage of kasetophono.com
 pub fn scrape_subcategories(document: &str) -> Result<Vec<Subcategory>, anyhow::Error> {
-    let content = Html::parse_document(&document);
+    let content = Html::parse_document(document);
     let selector = Selector::parse("div.post-body h1.favourite-posts-title a").unwrap();
 
     let mut subcategories = vec![];

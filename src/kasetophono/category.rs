@@ -16,7 +16,7 @@ pub fn scrape_categories(document: &str) -> Result<Vec<Category>, anyhow::Error>
     // <ul id='nav2'>
     // <li><a href='https://www.kasetophono.com/p/blog-page_28.html'>Ξενα</a></li>
     // <li><a href='http://www.kasetophono.com/search/label/Playlist'>_Νέες</a></li>
-    let content = Html::parse_document(&document);
+    let content = Html::parse_document(document);
     let category_selector = Selector::parse("ul#nav2 li a").unwrap();
 
     let mut categories = vec![];
