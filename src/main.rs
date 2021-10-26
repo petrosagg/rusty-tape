@@ -85,11 +85,11 @@ async fn main() -> Result<()> {
     env_logger::init();
 
     let cassettes: HashMap<Uuid, Cassette> =
-        if let Ok(content) = std::fs::read_to_string("metadata.json") {
-            info!("Loading cassettes from disk");
-            serde_json::from_str(&content).unwrap()
+        if let Ok(content) = File::open("metadata.json") {
+            info!("loading cassettes from disk");
+            serde_json::from_reader(content).unwrap()
         } else {
-            info!("Loading cassettes from upstream");
+            info!("loading cassettes from upstream");
             let body = reqwest::get("https://www.kasetophono.com")
                 .await?
                 .text()
@@ -105,6 +105,7 @@ async fn main() -> Result<()> {
             cassettes
         };
 
+    info!("setting up http server");
     let cassettes = Arc::new(cassettes);
     let state: Arc<Mutex<Option<Child>>> = Arc::new(Mutex::new(None));
 
@@ -145,6 +146,7 @@ async fn main() -> Result<()> {
             .or(warp::fs::dir("frontend/dist")),
     );
 
+    info!("ready to accept connections");
     warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
 
     // // remove any partial downloads from previous runs
