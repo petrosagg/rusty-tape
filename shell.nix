@@ -3,6 +3,7 @@ with import <nixpkgs> {};
 stdenv.mkDerivation rec {
     name = "rusty-tape";
     buildInputs = [
+        alsa-lib
         openssl
         pkgconfig
         youtube-dl
@@ -10,6 +11,7 @@ stdenv.mkDerivation rec {
         expat
         libxml2
         libxkbcommon
+        libvlc
         ffmpeg
         rustup
         nodejs
