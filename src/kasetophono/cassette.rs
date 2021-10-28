@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use youtube_dl::{YoutubeDl, YoutubeDlOutput};
 
-use crate::kasetophono::{blogger, Subcategory, SubcategoryKind};
+use crate::kasetophono::{blogger, Song, Subcategory, SubcategoryKind};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Cassette {
@@ -18,13 +18,6 @@ pub struct Cassette {
     pub labels: Vec<String>,
     pub subcategories: Vec<Subcategory>,
     pub created_at: String,
-}
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Song {
-    id: String,
-    title: String,
-    duration: Option<u64>,
 }
 
 impl Cassette {
