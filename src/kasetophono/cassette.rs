@@ -25,7 +25,7 @@ impl Cassette {
         let iframe_selector = Selector::parse("iframe").unwrap();
         let image_selector = Selector::parse("img").unwrap();
 
-        let content = Html::parse_fragment(&entry.content.t);
+        let content = Html::parse_fragment(entry.content.t);
         let url = content
             .select(&iframe_selector)
             .next()
@@ -35,7 +35,7 @@ impl Cassette {
             let name = entry.title.t.trim();
             // Some cassettes contain slashes in their names
             let safe_name = name.replace('/', "-");
-            let url = entry.link[2].href.clone();
+            let url = entry.link[2].href.to_owned();
 
             let uuid = Uuid::new_v5(&Uuid::NAMESPACE_URL, url.as_bytes());
 
@@ -54,7 +54,7 @@ impl Cassette {
             let labels = entry
                 .category
                 .into_iter()
-                .map(|c| c.term)
+                .map(|c| c.term.to_owned())
                 .collect::<Vec<_>>();
 
             let image = content
@@ -73,7 +73,7 @@ impl Cassette {
                 url,
                 yt_url: yt_url.to_string(),
                 videos: vec![],
-                created_at: entry.published.t,
+                created_at: entry.published.t.to_owned(),
             })
         } else {
             None

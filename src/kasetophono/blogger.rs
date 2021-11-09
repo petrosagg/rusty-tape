@@ -2,202 +2,220 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Document {
-    pub version: String,
-    pub encoding: String,
-    pub feed: Feed,
+pub struct Document<'a> {
+    pub version: &'a str,
+    pub encoding: &'a str,
+    #[serde(borrow)]
+    pub feed: Feed<'a>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Feed {
-    pub xmlns: String,
+pub struct Feed<'a> {
+    pub xmlns: &'a str,
     #[serde(rename = "xmlns$openSearch")]
-    pub xmlns_open_search: String,
+    pub xmlns_open_search: &'a str,
     #[serde(rename = "xmlns$blogger")]
-    pub xmlns_blogger: String,
+    pub xmlns_blogger: &'a str,
     #[serde(rename = "xmlns$georss")]
-    pub xmlns_georss: String,
+    pub xmlns_georss: &'a str,
     #[serde(rename = "xmlns$gd")]
-    pub xmlns_gd: String,
+    pub xmlns_gd: &'a str,
     #[serde(rename = "xmlns$thr")]
-    pub xmlns_thr: String,
-    pub id: Id,
-    pub updated: Updated,
-    pub category: Vec<Category>,
-    pub title: Title,
-    pub subtitle: Subtitle,
-    pub link: Vec<Link>,
-    pub author: Vec<Author>,
-    pub generator: Generator,
-    #[serde(rename = "openSearch$totalResults")]
-    pub open_search_total_results: OpenSearchTotalResults,
-    #[serde(rename = "openSearch$startIndex")]
-    pub open_search_start_index: OpenSearchStartIndex,
+    pub xmlns_thr: &'a str,
+    pub id: Id<'a>,
+    #[serde(borrow)]
+    pub updated: Updated<'a>,
+    #[serde(borrow)]
+    pub category: Vec<Category<'a>>,
+    #[serde(borrow)]
+    pub title: Title<'a>,
+    #[serde(borrow)]
+    pub subtitle: Subtitle<'a>,
+    #[serde(borrow)]
+    pub link: Vec<Link<'a>>,
+    #[serde(borrow)]
+    pub author: Vec<Author<'a>>,
+    #[serde(borrow)]
+    pub generator: Generator<'a>,
+    #[serde(borrow, rename = "openSearch$totalResults")]
+    pub open_search_total_results: OpenSearchTotalResults<'a>,
+    #[serde(borrow, rename = "openSearch$startIndex")]
+    pub open_search_start_index: OpenSearchStartIndex<'a>,
     #[serde(rename = "openSearch$itemsPerPage")]
-    pub open_search_items_per_page: OpenSearchItemsPerPage,
+    pub open_search_items_per_page: OpenSearchItemsPerPage<'a>,
+    #[serde(borrow, default)]
+    pub entry: Vec<Entry<'a>>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Id<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Updated<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Title<'a> {
+    #[serde(rename = "type")]
+    pub type_field: &'a str,
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Subtitle<'a> {
+    #[serde(rename = "type")]
+    pub type_field: &'a str,
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Link<'a> {
+    pub rel: &'a str,
+    #[serde(rename = "type")]
+    pub type_field: Option<&'a str>,
+    pub href: &'a str,
+    pub title: Option<&'a str>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Author<'a> {
+    #[serde(borrow)]
+    pub name: Name<'a>,
+    #[serde(borrow)]
+    pub uri: Option<Uri<'a>>,
+    #[serde(borrow)]
+    pub email: Email<'a>,
+    #[serde(borrow, rename = "gd$image")]
+    pub gd_image: GdImage<'a>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Name<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Email<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct GdImage<'a> {
+    pub rel: &'a str,
+    pub width: &'a str,
+    pub height: &'a str,
+    pub src: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Generator<'a> {
+    pub version: &'a str,
+    pub uri: &'a str,
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OpenSearchTotalResults<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OpenSearchStartIndex<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct OpenSearchItemsPerPage<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Entry<'a> {
+    #[serde(borrow)]
+    pub id: Id<'a>,
+    #[serde(borrow)]
+    pub published: Published<'a>,
+    #[serde(borrow)]
+    pub updated: Updated<'a>,
+    #[serde(borrow, default)]
+    pub category: Vec<Category<'a>>,
+    #[serde(borrow)]
+    pub title: Title<'a>,
+    #[serde(borrow)]
+    pub content: Content<'a>,
+    #[serde(borrow)]
+    pub link: Vec<Link<'a>>,
+    #[serde(borrow)]
+    pub author: Vec<Author<'a>>,
+    #[serde(borrow, rename = "media$thumbnail")]
+    pub media_thumbnail: Option<MediaThumbnail<'a>>,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Published<'a> {
+    #[serde(rename = "$t")]
+    pub t: &'a str,
+}
+
+#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[serde(rename_all = "camelCase")]
+pub struct Category<'a> {
     #[serde(default)]
-    pub entry: Vec<Entry>,
+    pub scheme: Option<&'a str>,
+    pub term: &'a str,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Id {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Updated {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Title {
+pub struct Content<'a> {
     #[serde(rename = "type")]
-    pub type_field: String,
+    pub type_field: &'a str,
     #[serde(rename = "$t")]
-    pub t: String,
+    pub t: &'a str,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Subtitle {
-    #[serde(rename = "type")]
-    pub type_field: String,
+pub struct Uri<'a> {
     #[serde(rename = "$t")]
-    pub t: String,
+    pub t: &'a str,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
-pub struct Link {
-    pub rel: String,
-    #[serde(rename = "type")]
-    pub type_field: Option<String>,
-    pub href: String,
-    pub title: Option<String>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Author {
-    pub name: Name,
-    pub uri: Option<Uri>,
-    pub email: Email,
-    #[serde(rename = "gd$image")]
-    pub gd_image: GdImage,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Name {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Email {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct GdImage {
-    pub rel: String,
-    pub width: String,
-    pub height: String,
-    pub src: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Generator {
-    pub version: String,
-    pub uri: String,
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct OpenSearchTotalResults {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct OpenSearchStartIndex {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct OpenSearchItemsPerPage {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Entry {
-    pub id: Id,
-    pub published: Published,
-    pub updated: Updated,
-    #[serde(default)]
-    pub category: Vec<Category>,
-    pub title: Title,
-    pub content: Content,
-    pub link: Vec<Link>,
-    pub author: Vec<Author>,
-    #[serde(rename = "media$thumbnail")]
-    pub media_thumbnail: Option<MediaThumbnail>,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Published {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Category {
-    #[serde(default)]
-    pub scheme: Option<String>,
-    pub term: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Content {
-    #[serde(rename = "type")]
-    pub type_field: String,
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Uri {
-    #[serde(rename = "$t")]
-    pub t: String,
-}
-
-#[derive(Default, Debug, Clone, PartialEq, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct MediaThumbnail {
+pub struct MediaThumbnail<'a> {
     #[serde(rename = "xmlns$media")]
-    pub xmlns_media: String,
-    pub url: String,
-    pub height: String,
-    pub width: String,
+    pub xmlns_media: &'a str,
+    pub url: &'a str,
+    pub height: &'a str,
+    pub width: &'a str,
 }
