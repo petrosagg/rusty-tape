@@ -92,9 +92,7 @@ impl Cassette {
     }
 
     pub fn fill_songs(&mut self) -> Result<(), anyhow::Error> {
-        let output = YoutubeDl::new(&self.yt_url)
-            .flat_playlist(true)
-            .run()?;
+        let output = YoutubeDl::new(&self.yt_url).flat_playlist(true).run()?;
 
         if let YoutubeDlOutput::Playlist(playlist) = output {
             self.videos = playlist

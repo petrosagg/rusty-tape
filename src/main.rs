@@ -71,7 +71,7 @@ async fn cassettes(subcategories: &[Subcategory]) -> Result<HashMap<Uuid, Casset
         match cassette.fill_songs() {
             Ok(()) => true,
             Err(e) => {
-                debug!("discarding cassette: {:?}: {}",&cassette.name, e);
+                debug!("discarding cassette: {:?}: {}", &cassette.name, e);
                 false
             }
         }
@@ -84,26 +84,25 @@ async fn cassettes(subcategories: &[Subcategory]) -> Result<HashMap<Uuid, Casset
 async fn main() -> Result<()> {
     env_logger::init();
 
-    let cassettes: HashMap<Uuid, Cassette> =
-        if let Ok(content) = File::open("metadata.json") {
-            info!("loading cassettes from disk");
-            serde_json::from_reader(content).unwrap()
-        } else {
-            info!("loading cassettes from upstream");
-            let body = reqwest::get("https://www.kasetophono.com")
-                .await?
-                .text()
-                .await?;
+    let cassettes: HashMap<Uuid, Cassette> = if let Ok(content) = File::open("metadata.json") {
+        info!("loading cassettes from disk");
+        serde_json::from_reader(content).unwrap()
+    } else {
+        info!("loading cassettes from upstream");
+        let body = reqwest::get("https://www.kasetophono.com")
+            .await?
+            .text()
+            .await?;
 
-            let categories = kasetophono::scrape_categories(&body).unwrap();
-            let subcategories = subcategories(&categories).await?;
-            let cassettes = cassettes(&subcategories).await?;
+        let categories = kasetophono::scrape_categories(&body).unwrap();
+        let subcategories = subcategories(&categories).await?;
+        let cassettes = cassettes(&subcategories).await?;
 
-            let buf = serde_json::to_string_pretty(&cassettes).unwrap();
-            let mut file = File::create("metadata.json").unwrap();
-            file.write_all(buf.as_bytes()).unwrap();
-            cassettes
-        };
+        let buf = serde_json::to_string_pretty(&cassettes).unwrap();
+        let mut file = File::create("metadata.json").unwrap();
+        file.write_all(buf.as_bytes()).unwrap();
+        cassettes
+    };
 
     info!("setting up http server");
     let cassettes = Arc::new(cassettes);
