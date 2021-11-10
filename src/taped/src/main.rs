@@ -11,8 +11,6 @@ use log::{debug, info};
 use uuid::Uuid;
 use warp::Filter;
 
-mod kasetophono;
-
 use kasetophono::{blogger, Cassette, Category, Subcategory};
 
 type Result<T> = std::result::Result<T, anyhow::Error>;
@@ -142,7 +140,7 @@ async fn main() -> Result<()> {
     let routes = warp::get().and(
         play.or(stop)
             .or(cassettes)
-            .or(warp::fs::dir("frontend/dist")),
+            .or(warp::fs::dir("src/webui/dist")),
     );
 
     info!("ready to accept connections");

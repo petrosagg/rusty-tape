@@ -15,6 +15,7 @@ stdenv.mkDerivation rec {
         ffmpeg
         rustup
         nodejs
+        trunk
         mpv
         vulkan-loader
         vulkan-tools

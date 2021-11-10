@@ -3,7 +3,7 @@ use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use youtube_dl::{YoutubeDl, YoutubeDlOutput};
 
-use crate::kasetophono::{blogger, Song, Subcategory, SubcategoryKind};
+use crate::{blogger, Song, Subcategory, SubcategoryKind};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Cassette {
