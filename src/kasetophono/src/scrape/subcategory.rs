@@ -1,24 +1,7 @@
 use percent_encoding::percent_decode_str;
 use scraper::{Html, Selector};
-use serde::{Deserialize, Serialize};
 
-/// A subcategory of kasetophono
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub struct Subcategory {
-    /// The name of the subcategory
-    pub name: String,
-    /// The kind of subcategory
-    pub kind: SubcategoryKind,
-}
-
-/// The kind of subcategory of kasetophono
-#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
-pub enum SubcategoryKind {
-    /// A subcategory that is a search for a specific label
-    Label(String),
-    /// A subcategory that is just a single cassette
-    Cassette(String),
-}
+use crate::{Subcategory, SubcategoryKind};
 
 /// Extracts the list of categories from the frontpage of kasetophono.com
 pub fn scrape_subcategories(document: &str) -> Result<Vec<Subcategory>, anyhow::Error> {

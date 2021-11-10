@@ -1401,6 +1401,7 @@ dependencies = [
 name = "rusty-tape-frontend"
 version = "0.1.0"
 dependencies = [
+ "kasetophono",
  "reqwest",
  "wasm-bindgen",
  "wasm-bindgen-futures",

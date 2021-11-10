@@ -1,24 +1,9 @@
-use scraper::{Html, Selector};
-use serde::{Deserialize, Serialize};
 use uuid::Uuid;
 use youtube_dl::{YoutubeDl, YoutubeDlOutput};
+use scraper::{Html, Selector};
+use crate::scrape::blogger;
 
-use crate::{blogger, Song, Subcategory, SubcategoryKind};
-
-#[derive(Debug, Serialize, Deserialize)]
-pub struct Cassette {
-    pub uuid: Uuid,
-    pub name: String,
-    pub safe_name: String,
-    pub path: String,
-    pub url: String,
-    pub yt_url: String,
-    pub videos: Vec<Song>,
-    pub image_url: Option<String>,
-    pub labels: Vec<String>,
-    pub subcategories: Vec<Subcategory>,
-    pub created_at: String,
-}
+use crate::{Cassette, Song, Subcategory, SubcategoryKind};
 
 impl Cassette {
     pub fn try_from_entry(entry: blogger::Entry) -> Option<Self> {
@@ -133,6 +118,6 @@ mod test {
             created_at: Default::default(),
         };
 
-        c.fill_videos();
+        c.fill_songs();
     }
 }

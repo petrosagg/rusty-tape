@@ -1,14 +1,7 @@
-use scraper::{Html, Selector};
 use std::collections::HashSet;
+use scraper::{Html, Selector};
 
-/// A top level category of kasetophono
-#[derive(Debug, PartialEq)]
-pub struct Category {
-    /// The name of the category
-    pub name: String,
-    /// The URL of the category blogpost containing the subcategories
-    pub url: String,
-}
+use crate::Category;
 
 /// Extracts the list of categories from the frontpage of kasetophono.com
 pub fn scrape_categories(document: &str) -> Result<Vec<Category>, anyhow::Error> {

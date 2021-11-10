@@ -8,7 +8,11 @@ edition = "2021"
 [dependencies]
 anyhow = "1"
 serde = { version = "1", features = ["derive"] }
-scraper = "0.11"
-youtube_dl = "0.6"
+scraper = { version = "0.11", optional = true }
+youtube_dl = { version = "0.6", optional = true }
 uuid = { version = "0.8", features = ["serde", "v5"] }
-percent-encoding = "2"
+percent-encoding = { version = "2", optional = true }
+
+[features]
+default = ["scrape"]
+scrape = ["scraper", "youtube_dl", "percent-encoding"]

@@ -11,7 +11,7 @@ use log::{debug, info};
 use uuid::Uuid;
 use warp::Filter;
 
-use kasetophono::{blogger, Cassette, Category, Subcategory};
+use kasetophono::{scrape::blogger, Cassette, Category, Subcategory};
 
 type Result<T> = std::result::Result<T, anyhow::Error>;
 
@@ -22,7 +22,7 @@ async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>> {
 
     let mut subcategories = vec![];
     while let Some(response) = responses.try_next().await? {
-        let subs = kasetophono::scrape_subcategories(&response)?;
+        let subs = kasetophono::scrape::subcategory::scrape_subcategories(&response)?;
         subcategories.extend(subs);
     }
     Ok(subcategories)
@@ -92,7 +92,7 @@ async fn main() -> Result<()> {
             .text()
             .await?;
 
-        let categories = kasetophono::scrape_categories(&body).unwrap();
+        let categories = kasetophono::scrape::category::scrape_categories(&body).unwrap();
         let subcategories = subcategories(&categories).await?;
         let cassettes = cassettes(&subcategories).await?;
 
