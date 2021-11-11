@@ -1403,6 +1403,8 @@ version = "0.1.0"
 dependencies = [
  "kasetophono",
  "reqwest",
+ "serde_json",
+ "uuid",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
