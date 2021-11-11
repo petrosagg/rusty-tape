@@ -1,7 +1,7 @@
+use crate::scrape::blogger;
+use scraper::{Html, Selector};
 use uuid::Uuid;
 use youtube_dl::{YoutubeDl, YoutubeDlOutput};
-use scraper::{Html, Selector};
-use crate::scrape::blogger;
 
 use crate::{Cassette, Song, Subcategory, SubcategoryKind};
 

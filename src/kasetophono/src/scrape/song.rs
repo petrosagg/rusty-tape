@@ -10,11 +10,10 @@ impl Song {
                     .formats
                     .into_iter()
                     .flatten()
-                    .filter(|f| f.acodec.as_deref() == Some("opus"))
-                    .next()?
+                    .find(|f| f.acodec.as_deref() == Some("opus"))?
                     .url
             }
-            _ => return None,
+            _ => None,
         }
     }
 }

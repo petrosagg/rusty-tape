@@ -1,5 +1,5 @@
-use std::collections::HashSet;
 use scraper::{Html, Selector};
+use std::collections::HashSet;
 
 use crate::Category;
 
