@@ -1,17 +1,18 @@
 use std::collections::HashMap;
-use std::fs::File;
-use std::io::prelude::*;
 use std::process::Child;
 use std::sync::Arc;
 use std::sync::Mutex;
 
 use futures::stream::{self, StreamExt, TryStreamExt};
 use futures::TryFutureExt;
+use include_dir::{include_dir, Dir};
 use log::{debug, info};
 use uuid::Uuid;
-use warp::Filter;
+use warp::{reply::Response, Filter};
 
 use kasetophono::{scrape::blogger, Cassette, Category, Subcategory};
+
+static ROOT: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
 
 type Result<T> = std::result::Result<T, anyhow::Error>;
 
@@ -140,7 +141,21 @@ async fn main() -> Result<()> {
     let routes = warp::get().and(
         play.or(stop)
             .or(cassettes)
-            .or(warp::fs::dir("src/webui/dist")),
+            .or(warp::path::full()
+                .and_then(|path: warp::path::FullPath| {
+                    let path = path.as_str()[1..].to_owned();
+                    let mime = mime_guess::from_path(&path).first_or_octet_stream();
+                    async move {
+                        let body = match ROOT.get_file(&path) {
+                            Some(file) => file.contents(),
+                            None => return Err(warp::reject::not_found()),
+                        };
+                        let mut resp = Response::new(body.into());
+                        resp.headers_mut().insert(http::header::CONTENT_TYPE, mime.as_ref().try_into().unwrap());
+                        Ok(resp)
+                    }
+                })
+            )
     );
 
     info!("ready to accept connections");
