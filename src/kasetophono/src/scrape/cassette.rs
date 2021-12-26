@@ -10,7 +10,7 @@ impl Cassette {
         let iframe_selector = Selector::parse("iframe").unwrap();
         let image_selector = Selector::parse("img").unwrap();
 
-        let content = Html::parse_fragment(entry.content.t);
+        let content = Html::parse_fragment(&entry.content.t);
         let url = content
             .select(&iframe_selector)
             .next()
@@ -39,7 +39,7 @@ impl Cassette {
             let labels = entry
                 .category
                 .into_iter()
-                .map(|c| c.term.to_owned())
+                .map(|c| c.term.into_owned())
                 .collect::<Vec<_>>();
 
             let image = content
@@ -55,10 +55,10 @@ impl Cassette {
                 subcategories: vec![],
                 labels,
                 image_url: image.map(|s| s.to_string()),
-                url,
+                url: url.into_owned(),
                 yt_url: yt_url.to_string(),
                 videos: vec![],
-                created_at: entry.published.t.to_owned(),
+                created_at: entry.published.t.into_owned(),
             })
         } else {
             None

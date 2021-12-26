@@ -1,0 +1,2694 @@
+{
+  "version": "1.0",
+  "encoding": "UTF-8",
+  "feed": {
+    "xmlns": "http://www.w3.org/2005/Atom",
+    "xmlns$openSearch": "http://a9.com/-/spec/opensearchrss/1.0/",
+    "xmlns$blogger": "http://schemas.google.com/blogger/2008",
+    "xmlns$georss": "http://www.georss.org/georss",
+    "xmlns$gd": "http://schemas.google.com/g/2005",
+    "xmlns$thr": "http://purl.org/syndication/thread/1.0",
+    "id": {
+      "$t": "tag:blogger.com,1999:blog-6701038859805662683"
+    },
+    "updated": {
+      "$t": "2021-12-21T01:35:23.354+02:00"
+    },
+    "category": [
+      {
+        "term": "Playlist"
+      },
+      {
+        "term": "greek"
+      },
+      {
+        "term": "relax"
+      },
+      {
+        "term": "songs"
+      },
+      {
+        "term": "οι κασέτες σας"
+      },
+      {
+        "term": "morning"
+      },
+      {
+        "term": "alternative"
+      },
+      {
+        "term": "summer"
+      },
+      {
+        "term": "Καραντινα"
+      },
+      {
+        "term": "happy"
+      },
+      {
+        "term": "Sophisticated Tapes"
+      },
+      {
+        "term": "world"
+      },
+      {
+        "term": "Night"
+      },
+      {
+        "term": "rock"
+      },
+      {
+        "term": "Ομορφιες"
+      },
+      {
+        "term": "radio"
+      },
+      {
+        "term": "electro"
+      },
+      {
+        "term": "sun"
+      },
+      {
+        "term": "εντεχνα"
+      },
+      {
+        "term": "autumn"
+      },
+      {
+        "term": "coffee"
+      },
+      {
+        "term": "travel"
+      },
+      {
+        "term": "spring"
+      },
+      {
+        "term": "instrumental"
+      },
+      {
+        "term": "read"
+      },
+      {
+        "term": "jazz"
+      },
+      {
+        "term": "vintage"
+      },
+      {
+        "term": "indie"
+      },
+      {
+        "term": "focus"
+      },
+      {
+        "term": "love"
+      },
+      {
+        "term": "αλτερνατιβ"
+      },
+      {
+        "term": "beats"
+      },
+      {
+        "term": "sad"
+      },
+      {
+        "term": "ραδιο"
+      },
+      {
+        "term": "month"
+      },
+      {
+        "term": "blog"
+      },
+      {
+        "term": "home"
+      },
+      {
+        "term": "Urban"
+      },
+      {
+        "term": "slow"
+      },
+      {
+        "term": "afternoon"
+      },
+      {
+        "term": "winter"
+      },
+      {
+        "term": "working"
+      },
+      {
+        "term": "cold"
+      },
+      {
+        "term": "drink"
+      },
+      {
+        "term": "sexy"
+      },
+      {
+        "term": "αφιερωματα"
+      },
+      {
+        "term": "acoustic"
+      },
+      {
+        "term": "dance"
+      },
+      {
+        "term": "sea"
+      },
+      {
+        "term": "Αλητεια"
+      },
+      {
+        "term": "λαικα"
+      },
+      {
+        "term": "roadtrip"
+      },
+      {
+        "term": "Modern Pop"
+      },
+      {
+        "term": "ambient"
+      },
+      {
+        "term": "beach"
+      },
+      {
+        "term": "ethnik"
+      },
+      {
+        "term": "party"
+      },
+      {
+        "term": "παραδοσιακα"
+      },
+      {
+        "term": "τσιπουρα"
+      },
+      {
+        "term": "hip hop"
+      },
+      {
+        "term": "θεματικα"
+      },
+      {
+        "term": "christmas"
+      },
+      {
+        "term": "cinematic"
+      },
+      {
+        "term": "house"
+      },
+      {
+        "term": "meditation"
+      },
+      {
+        "term": "rain"
+      },
+      {
+        "term": "sunday"
+      },
+      {
+        "term": "noon"
+      },
+      {
+        "term": "soul"
+      },
+      {
+        "term": "ρεμπετικα"
+      },
+      {
+        "term": "cover"
+      },
+      {
+        "term": "γυμναστικη"
+      },
+      {
+        "term": "afro"
+      },
+      {
+        "term": "ατμοσφαιρικα"
+      },
+      {
+        "term": "διασκευες"
+      },
+      {
+        "term": "μελαγχολικα"
+      },
+      {
+        "term": "friday"
+      },
+      {
+        "term": "Μπαλκόνια"
+      },
+      {
+        "term": "βιντατζ"
+      },
+      {
+        "term": "food"
+      },
+      {
+        "term": "Saturday"
+      },
+      {
+        "term": "monday"
+      },
+      {
+        "term": "popular"
+      },
+      {
+        "term": "soundtracks"
+      },
+      {
+        "term": "tribute"
+      },
+      {
+        "term": "προτεινομενες"
+      },
+      {
+        "term": "bed"
+      },
+      {
+        "term": "piano"
+      },
+      {
+        "term": "thursday"
+      },
+      {
+        "term": "wednesday"
+      },
+      {
+        "term": "dark"
+      },
+      {
+        "term": "reggae"
+      },
+      {
+        "term": "sky"
+      },
+      {
+        "term": "tuesday"
+      },
+      {
+        "term": "fresh"
+      },
+      {
+        "term": "trip hop"
+      },
+      {
+        "term": "εξεταστική"
+      },
+      {
+        "term": "thematic"
+      },
+      {
+        "term": "youth"
+      },
+      {
+        "term": "γη"
+      },
+      {
+        "term": "εξω"
+      },
+      {
+        "term": "συμπαν"
+      },
+      {
+        "term": "2016"
+      },
+      {
+        "term": "Tarantino"
+      },
+      {
+        "term": "lazy-sunday"
+      },
+      {
+        "term": "κλασικα"
+      },
+      {
+        "term": "τραγουδια"
+      },
+      {
+        "term": "2017"
+      },
+      {
+        "term": "90s"
+      },
+      {
+        "term": "Forward"
+      },
+      {
+        "term": "Space"
+      },
+      {
+        "term": "latin"
+      },
+      {
+        "term": "news"
+      },
+      {
+        "term": "Sounds Like Thessaloniki"
+      },
+      {
+        "term": "downtempo"
+      },
+      {
+        "term": "old school"
+      },
+      {
+        "term": "psychedelic"
+      },
+      {
+        "term": "remix"
+      },
+      {
+        "term": "rnb"
+      },
+      {
+        "term": "ανατολιτικα"
+      },
+      {
+        "term": "κοσμος"
+      },
+      {
+        "term": "παιδικα"
+      },
+      {
+        "term": "χιπ χοπ"
+      },
+      {
+        "term": "artists"
+      },
+      {
+        "term": "classicrock"
+      },
+      {
+        "term": "events"
+      },
+      {
+        "term": "folk"
+      },
+      {
+        "term": "girls"
+      },
+      {
+        "term": "mountains"
+      },
+      {
+        "term": "new album"
+      },
+      {
+        "term": "sleep"
+      },
+      {
+        "term": "stoner"
+      },
+      {
+        "term": "synth"
+      },
+      {
+        "term": "ροκ"
+      },
+      {
+        "term": "Albums"
+      },
+      {
+        "term": "Balkan"
+      },
+      {
+        "term": "cities"
+      },
+      {
+        "term": "colors"
+      },
+      {
+        "term": "funk"
+      },
+      {
+        "term": "swing"
+      },
+      {
+        "term": "αγγλοφωνα"
+      },
+      {
+        "term": "νεα μουσικη"
+      },
+      {
+        "term": "africa"
+      },
+      {
+        "term": "jump"
+      },
+      {
+        "term": "new song"
+      },
+      {
+        "term": "post"
+      },
+      {
+        "term": "world electro"
+      },
+      {
+        "term": "Σπιτικο Φεστιβαλ"
+      },
+      {
+        "term": "ακουμε δισκους"
+      },
+      {
+        "term": "Blues"
+      },
+      {
+        "term": "Paris"
+      },
+      {
+        "term": "deep"
+      },
+      {
+        "term": "drum and bass"
+      },
+      {
+        "term": "smoke"
+      },
+      {
+        "term": "test"
+      },
+      {
+        "term": "καλαντα"
+      },
+      {
+        "term": "τραγούδια"
+      },
+      {
+        "term": "classic"
+      },
+      {
+        "term": "nujazz"
+      },
+      {
+        "term": "post punk"
+      },
+      {
+        "term": "punk"
+      },
+      {
+        "term": "drugs"
+      },
+      {
+        "term": "duets"
+      },
+      {
+        "term": "festivals"
+      },
+      {
+        "term": "grungerock"
+      },
+      {
+        "term": "italy"
+      },
+      {
+        "term": "lofi"
+      },
+      {
+        "term": "mashup"
+      },
+      {
+        "term": "mor"
+      },
+      {
+        "term": "retro"
+      },
+      {
+        "term": "rock n roll"
+      },
+      {
+        "term": "ska"
+      },
+      {
+        "term": "tango"
+      },
+      {
+        "term": "Παραμύθια"
+      }
+    ],
+    "title": {
+      "type": "text",
+      "$t": "Κασετόφωνο"
+    },
+    "subtitle": {
+      "type": "html",
+      "$t": "Το Σάουντρακ Των Μελλοντικών Σου Αναμνήσεων."
+    },
+    "link": [
+      {
+        "rel": "http://schemas.google.com/g/2005#feed",
+        "type": "application/atom+xml",
+        "href": "https://www.kasetophono.com/feeds/posts/default"
+      },
+      {
+        "rel": "self",
+        "type": "application/atom+xml",
+        "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default?alt=json"
+      },
+      {
+        "rel": "alternate",
+        "type": "text/html",
+        "href": "https://www.kasetophono.com/"
+      },
+      {
+        "rel": "hub",
+        "href": "http://pubsubhubbub.appspot.com/"
+      },
+      {
+        "rel": "next",
+        "type": "application/atom+xml",
+        "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default?alt=json&start-index=26&max-results=25"
+      }
+    ],
+    "author": [
+      {
+        "name": {
+          "$t": "Unknown"
+        },
+        "email": {
+          "$t": "noreply@blogger.com"
+        },
+        "gd$image": {
+          "rel": "http://schemas.google.com/g/2005#thumbnail",
+          "width": "16",
+          "height": "16",
+          "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+        }
+      }
+    ],
+    "generator": {
+      "version": "7.00",
+      "uri": "http://www.blogger.com",
+      "$t": "Blogger"
+    },
+    "openSearch$totalResults": {
+      "$t": "1639"
+    },
+    "openSearch$startIndex": {
+      "$t": "1"
+    },
+    "openSearch$itemsPerPage": {
+      "$t": "25"
+    },
+    "entry": [
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-3956783849339343191"
+        },
+        "published": {
+          "$t": "2021-12-20T12:40:00.003+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-20T12:45:18.205+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "christmas"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "jazz"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "monday"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "vintage"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "winter"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Δευτέρα"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img border=\"0\" data-original-height=\"340\" data-original-width=\"640\" height=\"340\" src=\"https://blogger.googleusercontent.com/img/a/AVvXsEiKtMrfqkZ2CM9xbD0msRKzgSPrtUuJCzz0Ut39Zzf6r1rifRWkPqinwzIwDpQwEMR2eZ49cgxQZy0l3NwHu9l0hpx0ISS3Ub2OMqe_nozOwKDTb9v4rwgJMepzM_vPXp8Qg-IPgp8kD7Njglh0hwBdl72DalrNhEgn1yTJU95cjkubNlpi5RrcJrLcpg=w640-h340\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/3tuJ34YgW0c?list=PLSRDGXudTSm_F6VMFLwtcmZzkvUuEUWCe\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/3956783849339343191"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/3956783849339343191"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/12/deutera.html",
+            "title": "Δευτέρα"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://blogger.googleusercontent.com/img/a/AVvXsEiKtMrfqkZ2CM9xbD0msRKzgSPrtUuJCzz0Ut39Zzf6r1rifRWkPqinwzIwDpQwEMR2eZ49cgxQZy0l3NwHu9l0hpx0ISS3Ub2OMqe_nozOwKDTb9v4rwgJMepzM_vPXp8Qg-IPgp8kD7Njglh0hwBdl72DalrNhEgn1yTJU95cjkubNlpi5RrcJrLcpg=s72-w640-h340-c",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-4039659431845485778"
+        },
+        "published": {
+          "$t": "2021-12-17T14:18:00.005+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-17T14:18:48.617+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "dance"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "friday"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "happy"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Modern Pop"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "morning"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Παρασκευή"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"209\" data-original-width=\"500\" height=\"268\" src=\"https://blogger.googleusercontent.com/img/a/AVvXsEiMOgIyno_7XQTYQJyGBKICuXgRZQGEtVfJ8JCSyrKhGKvhpHqXeGoET1Hsi6QvCHnY3-woBc1G4eFPNzcrnsiBWdvyxD-eZ29iN9E8nanitGijk2aiCKhnX2ABf51oERYIXs4rdyaTdk22_vfMsCqyAYc1Fe6c21umNu6tA2fDmd-EkzNe-vX-7eu8GQ=w640-h268\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/2H-ChIjEOHo?list=PLSRDGXudTSm8sFSp35KDfaQ9PrIPUJXUZ\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/4039659431845485778"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/4039659431845485778"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/12/blog-post.html",
+            "title": "Παρασκευή"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://blogger.googleusercontent.com/img/a/AVvXsEiMOgIyno_7XQTYQJyGBKICuXgRZQGEtVfJ8JCSyrKhGKvhpHqXeGoET1Hsi6QvCHnY3-woBc1G4eFPNzcrnsiBWdvyxD-eZ29iN9E8nanitGijk2aiCKhnX2ABf51oERYIXs4rdyaTdk22_vfMsCqyAYc1Fe6c21umNu6tA2fDmd-EkzNe-vX-7eu8GQ=s72-w640-h268-c",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-1174916866611019345"
+        },
+        "published": {
+          "$t": "2021-12-16T19:59:00.005+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-16T21:41:10.217+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "jazz"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "winter"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ατμοσφαιρικα"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "βιντατζ"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Νουάρ"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"405\" data-original-width=\"765\" height=\"339\" src=\"https://blogger.googleusercontent.com/img/a/AVvXsEjsTykrdJ9htk434dS6trbvxVP_u5MtvJueM7NBx_ZPML3Ay204lVKtJU88UvS8nTAMJq7vnuOlaJbSlA1j3zHAcDD6OIvZ8pgtt5YLv24s6aLu9mwSQQ7LaIIcaj3jIC-SbHExXOA_94XPQ9XrTVRD52dM7beXsZefv_x29Duaay9ZR0Bx8FhtFr1-OQ=w640-h339\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/sc6yiVrBw6A?list=PLSRDGXudTSm9Gye5FAUx6awaie6C8Xlov\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1174916866611019345"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1174916866611019345"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/12/nouar.html",
+            "title": "Νουάρ"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://blogger.googleusercontent.com/img/a/AVvXsEjsTykrdJ9htk434dS6trbvxVP_u5MtvJueM7NBx_ZPML3Ay204lVKtJU88UvS8nTAMJq7vnuOlaJbSlA1j3zHAcDD6OIvZ8pgtt5YLv24s6aLu9mwSQQ7LaIIcaj3jIC-SbHExXOA_94XPQ9XrTVRD52dM7beXsZefv_x29Duaay9ZR0Bx8FhtFr1-OQ=s72-w640-h339-c",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-1283042342548883959"
+        },
+        "published": {
+          "$t": "2021-12-15T13:04:00.006+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-15T13:05:36.176+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "christmas"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Lonely Christmas"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"252\" data-original-width=\"498\" src=\"https://i.pinimg.com/originals/48/71/23/487123652ed3c4a6cf832121b11625d5.gif\" width=\"720\" /><iframe width=\"720\" height=\"150\" src=\"https://youtube.com/embed/7Xi0wwDlBvc?list=PLSRDGXudTSm9WZD45HzF-3oa90x6YrFBY\" frameborder=\"0\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1283042342548883959"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1283042342548883959"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/12/lonely-christmas.html",
+            "title": "Lonely Christmas"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://img.youtube.com/vi/7Xi0wwDlBvc/default.jpg",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-2426534413062471182"
+        },
+        "published": {
+          "$t": "2021-12-11T19:24:00.006+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-11T19:24:51.372+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "christmas"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Silent Night"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"252\" data-original-width=\"498\" src=\"https://blogger.googleusercontent.com/img/a/AVvXsEjduQM4sPolxlepAXIhDbRPwtXThVQN4eJKg1N2mZxfXxQpfHxlIQYeFeBpOjyX3qwEZPWyQE0g5pp7FVu54WIzD0oTsJoMWPiujCQZDXpWPDWMIVUcaGnLUUUXlEgwYxAxsJ6jr2r4WtvG_HB4fORAnlMGUeuXwdFIQIZQ82IYQxq3pcHOayvQS83tdA=s600\" width=\"720\" /><iframe allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture\" allowfullscreen=\"\" frameborder=\"0\" height=\"150\" src=\"https://www.youtube.com/embed/videoseries?list=PLSRDGXudTSm84V1o-PdZhvCCX56boEmoU\" title=\"YouTube video player\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2426534413062471182"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2426534413062471182"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/12/silent-night.html",
+            "title": "Silent Night"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://blogger.googleusercontent.com/img/a/AVvXsEjduQM4sPolxlepAXIhDbRPwtXThVQN4eJKg1N2mZxfXxQpfHxlIQYeFeBpOjyX3qwEZPWyQE0g5pp7FVu54WIzD0oTsJoMWPiujCQZDXpWPDWMIVUcaGnLUUUXlEgwYxAxsJ6jr2r4WtvG_HB4fORAnlMGUeuXwdFIQIZQ82IYQxq3pcHOayvQS83tdA=s72-c",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-5633307521218247504"
+        },
+        "published": {
+          "$t": "2021-12-10T21:47:00.012+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-10T22:17:11.941+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "θεματικα"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Γυναίκα"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"910\" data-original-width=\"1360\" src=\"https://blogger.googleusercontent.com/img/a/AVvXsEgvKbZPGiHNQFluXB7JjBD4MoSoVk3a1J9KjJO18UzOfwFrTKnSlI6yWaClORbQYb7trLhwV2faQ-nSSZNsk-f8fga-EeTIwN1z8v1-VxmJWdYDJByM28pS1Xz6LvXs4ib-MYmHMi_YM-SvqE48UUZI42_kc79Raa27HtNjXta2D4GVUikWZo_J0_Nwdw=s600\" width=\"720\" /><iframe width=\"720\" height=\"150\" src=\"https://youtube.com/embed/84zMvvaisPk?list=PLSRDGXudTSm-xwC0iIzvhKq1CzxpeufvP\" frameborder=\"0\"></iframe></div> "
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/5633307521218247504"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/5633307521218247504"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/12/gynaika.html",
+            "title": "Γυναίκα"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://blogger.googleusercontent.com/img/a/AVvXsEgvKbZPGiHNQFluXB7JjBD4MoSoVk3a1J9KjJO18UzOfwFrTKnSlI6yWaClORbQYb7trLhwV2faQ-nSSZNsk-f8fga-EeTIwN1z8v1-VxmJWdYDJByM28pS1Xz6LvXs4ib-MYmHMi_YM-SvqE48UUZI42_kc79Raa27HtNjXta2D4GVUikWZo_J0_Nwdw=s72-c",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-6723427363258414819"
+        },
+        "published": {
+          "$t": "2021-12-06T12:08:00.006+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-08T17:16:44.007+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "τραγουδια"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Κάποτε θα ΄ρθουν να σου πουν"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"187\" data-original-width=\"269\" src=\"https://blogger.googleusercontent.com/img/a/AVvXsEhy0rmX9v-FZEzHuHOyWmDC9Tyckn08rUG6iBdlHFgWXpWaFlzj4jlEdPYenI-eb_N59Ocsj6g1KaD9Jx5YobDFVaKbUl20hjEpocz_U9LF_OoDzlT6A-HJStgdLQuD0aEC1NrN80Dz83kcYdUpkctK7Qr-Jet0as3WtZwi1vVyPV0S0FbwdLrMYALlxg=s600\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/CUFfsRe8myA\" style=\"background-image: url(https://i.ytimg.com/vi/CUFfsRe8myA/hqdefault.jpg);\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/6723427363258414819"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/6723427363258414819"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/12/kapote-tha-rthoun.html",
+            "title": "Κάποτε θα ΄ρθουν να σου πουν"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://blogger.googleusercontent.com/img/a/AVvXsEhy0rmX9v-FZEzHuHOyWmDC9Tyckn08rUG6iBdlHFgWXpWaFlzj4jlEdPYenI-eb_N59Ocsj6g1KaD9Jx5YobDFVaKbUl20hjEpocz_U9LF_OoDzlT6A-HJStgdLQuD0aEC1NrN80Dz83kcYdUpkctK7Qr-Jet0as3WtZwi1vVyPV0S0FbwdLrMYALlxg=s72-c",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-2872176038145870690"
+        },
+        "published": {
+          "$t": "2021-11-18T19:23:00.004+02:00"
+        },
+        "updated": {
+          "$t": "2021-11-18T19:23:29.379+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "dance"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "funk"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "happy"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "party"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "διασκευες"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Ντόπιο Φάνκι"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"240\" data-original-width=\"320\" src=\"https://1.bp.blogspot.com/-6LSRLe39lwM/YZaK9HGyvbI/AAAAAAAAWQI/qqAZkPq0UFwtQQSfRdOY1KoW2DnmqEGxgCLcBGAsYHQ/s600/%25CE%25B3%25CF%2581%25CE%25B5%25CF%2581%25CE%25B3.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/_2FjhBTYGtQ?list=PLSRDGXudTSm-iMo2673VXNAQwxMbgJged\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2872176038145870690"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2872176038145870690"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/ntopio-funky.html",
+            "title": "Ντόπιο Φάνκι"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-6LSRLe39lwM/YZaK9HGyvbI/AAAAAAAAWQI/qqAZkPq0UFwtQQSfRdOY1KoW2DnmqEGxgCLcBGAsYHQ/s72-c/%25CE%25B3%25CF%2581%25CE%25B5%25CF%2581%25CE%25B3.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-1028928986786634994"
+        },
+        "published": {
+          "$t": "2021-11-17T15:40:00.002+02:00"
+        },
+        "updated": {
+          "$t": "2021-11-17T15:40:29.176+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "αφιερωματα"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Το Πολυτεχνείο Του Μίκη"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"360\" data-original-width=\"480\" src=\"https://1.bp.blogspot.com/-1n28hm5_aGQ/YZUF1fCegPI/AAAAAAAAWP8/2qn2ELa0JOAgDNxmPIAQ8kD55JhsZuk5gCLcBGAsYHQ/s600/ezgif-1098980954.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/fGKTl0Qrx3g?list=PLSRDGXudTSm-VM8Yt8Bi7J9Go2zsua_9D\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1028928986786634994"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1028928986786634994"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/tou-miki.html",
+            "title": "Το Πολυτεχνείο Του Μίκη"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-1n28hm5_aGQ/YZUF1fCegPI/AAAAAAAAWP8/2qn2ELa0JOAgDNxmPIAQ8kD55JhsZuk5gCLcBGAsYHQ/s72-c/ezgif-1098980954.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-6101864548931475441"
+        },
+        "published": {
+          "$t": "2021-11-16T13:32:00.009+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-16T20:12:33.251+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "autumn"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "colors"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ατμοσφαιρικα"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Πορτοκαλί"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"404\" data-original-width=\"498\" src=\"https://1.bp.blogspot.com/-RfFZ5uVL2cc/YZOWk0yalHI/AAAAAAAAWPw/DVJJEO1TOdcMBTK5eOSGuJIaqepkjPrFACLcBGAsYHQ/s600/hello-autumn-hello-fall.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/-ag2-msdunM?list=PLSRDGXudTSm-ta8rTH6FOKbfHKx-NKSeD\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/6101864548931475441"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/6101864548931475441"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/portokali.html",
+            "title": "Πορτοκαλί"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-RfFZ5uVL2cc/YZOWk0yalHI/AAAAAAAAWPw/DVJJEO1TOdcMBTK5eOSGuJIaqepkjPrFACLcBGAsYHQ/s72-c/hello-autumn-hello-fall.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-1841560688584331898"
+        },
+        "published": {
+          "$t": "2021-11-15T13:24:00.007+02:00"
+        },
+        "updated": {
+          "$t": "2021-11-15T13:25:39.916+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "dance"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ethnik"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "happy"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "home"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "latin"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "party"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "summer"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "world"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Χαρούμενα Σπίτια"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"330\" data-original-width=\"480\" src=\"https://1.bp.blogspot.com/-PXEHrf3g6kQ/YZJDPC44ziI/AAAAAAAAWPo/be5rcvxduuIiV1i4Qoo2pwG2S_vxbQfaACLcBGAsYHQ/s600/hfsdfd.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/bFDsEgGPZCc?list=PLSRDGXudTSm_FvteW4R4DnsOFp8j2EVj4\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1841560688584331898"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1841560688584331898"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/xaroumena-s.html",
+            "title": "Χαρούμενα Σπίτια"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-PXEHrf3g6kQ/YZJDPC44ziI/AAAAAAAAWPo/be5rcvxduuIiV1i4Qoo2pwG2S_vxbQfaACLcBGAsYHQ/s72-c/hfsdfd.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-414960405486538763"
+        },
+        "published": {
+          "$t": "2021-11-14T10:41:00.003+02:00"
+        },
+        "updated": {
+          "$t": "2021-11-14T10:41:27.068+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "autumn"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "coffee"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Modern Pop"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "morning"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Ζεστοί Καφέδες"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"338\" data-original-width=\"600\" src=\"https://1.bp.blogspot.com/-kyfZXVcnARY/YZDK-pREgII/AAAAAAAAWPc/CL__BjPc0RwqwuI-qWP5RiwDtOgYUaDagCLcBGAsYHQ/s600/ezgif-4-300214607e26.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/6HSr6DQZ0mo?list=PLSRDGXudTSm_XwM4Adi18z6XigeXztiAq\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/414960405486538763"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/414960405486538763"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/zestoi-kafedes.html",
+            "title": "Ζεστοί Καφέδες"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-kyfZXVcnARY/YZDK-pREgII/AAAAAAAAWPc/CL__BjPc0RwqwuI-qWP5RiwDtOgYUaDagCLcBGAsYHQ/s72-c/ezgif-4-300214607e26.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-4731735133429514518"
+        },
+        "published": {
+          "$t": "2021-11-13T15:47:00.010+02:00"
+        },
+        "updated": {
+          "$t": "2021-11-13T15:55:30.301+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "roadtrip"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "summer"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "sun"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ραδιο"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Βόλτα Στον Ήλιο"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"200\" data-original-width=\"356\" src=\"https://1.bp.blogspot.com/-FaMnZwqkx7Q/YY_Aud0elHI/AAAAAAAAWPU/Hnhkinogof8hNb26y-QsPGRCMjcW4K4swCLcBGAsYHQ/s600/200.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/6_vArsosveU?list=PLSRDGXudTSm9QLxIlhRJNPmpdQTQU_4eP\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/4731735133429514518"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/4731735133429514518"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/volta-ston-ilio.html",
+            "title": "Βόλτα Στον Ήλιο"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-FaMnZwqkx7Q/YY_Aud0elHI/AAAAAAAAWPU/Hnhkinogof8hNb26y-QsPGRCMjcW4K4swCLcBGAsYHQ/s72-c/200.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-3727065067449335304"
+        },
+        "published": {
+          "$t": "2021-11-11T23:25:00.006+02:00"
+        },
+        "updated": {
+          "$t": "2021-12-16T20:12:33.250+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "drink"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Night"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "αλτερνατιβ"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ατμοσφαιρικα"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Έχει κλείσει το μπαρ;"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"281\" data-original-width=\"373\" src=\"https://1.bp.blogspot.com/-c9hM9i9XiOE/YY2J00V0l4I/AAAAAAAAWPI/XVYnJ71jx7kyFQGZd8m-MNDp1CTUjX3iQCLcBGAsYHQ/s600/c2466b17c126fa5e6e00a17fbefc1bff.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/UTmCN3DfDuE?list=PLSRDGXudTSm8Y14SWdHbfUji_vEEKZ_hl\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/3727065067449335304"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/3727065067449335304"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/exei-kleisei-to-bar.html",
+            "title": "Έχει κλείσει το μπαρ;"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-c9hM9i9XiOE/YY2J00V0l4I/AAAAAAAAWPI/XVYnJ71jx7kyFQGZd8m-MNDp1CTUjX3iQCLcBGAsYHQ/s72-c/c2466b17c126fa5e6e00a17fbefc1bff.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-2872635321349008113"
+        },
+        "published": {
+          "$t": "2021-11-08T19:56:00.004+02:00"
+        },
+        "updated": {
+          "$t": "2021-11-08T20:19:21.875+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "αφιερωματα"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Του Χρόνη"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><div style=\"text-align: center;\"><img border=\"0\" data-original-height=\"413\" data-original-width=\"720\" src=\"https://1.bp.blogspot.com/-kWE5NVwPebQ/YYllp51Jr-I/AAAAAAAAWO4/V9LqB5rFiB4snlgjqeWlGBb9K2WwzDmowCLcBGAsYHQ/s16000/missios11.jpg\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/yv_QGBZ1hws?list=PLSRDGXudTSm9u-uqC1qnlPIgdegIhtepu\" width=\"720\"></iframe></div><div class=\"separator\" style=\"clear: both; text-align: center;\"></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2872635321349008113"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2872635321349008113"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/tou-xroni.html",
+            "title": "Του Χρόνη"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-kWE5NVwPebQ/YYllp51Jr-I/AAAAAAAAWO4/V9LqB5rFiB4snlgjqeWlGBb9K2WwzDmowCLcBGAsYHQ/s72-c/missios11.jpg",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-1296715788904145013"
+        },
+        "published": {
+          "$t": "2021-11-04T17:44:00.003+02:00"
+        },
+        "updated": {
+          "$t": "2021-11-04T17:44:22.625+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ambient"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "cinematic"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "cover"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "focus"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "read"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "sleep"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "αλτερνατιβ"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "διασκευες"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Morasta - Τα Σινεματικά (Kάβερ Μιξτέιπ)"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div class=\"separator\" style=\"clear: both; text-align: center;\"><img border=\"0\" data-original-height=\"618\" data-original-width=\"1100\" height=\"360\" src=\"https://1.bp.blogspot.com/-6Hj4_9Caw5g/YYP_QNH3_7I/AAAAAAAAWOU/LqPXJPVv65oR_rH5b1OP4-9wohc4g8HQACLcBGAsYHQ/w640-h360/Screenshot%2B2021-11-04%2Bat%2B17-41-08%2BMorasta%2B-%2B%25CE%25A4%25CE%25B1%2B%25CE%25A3%25CE%25B9%25CE%25BD%25CE%25B5%25CE%25BC%25CE%25B1%25CF%2584%25CE%25B9%25CE%25BA%25CE%25AC%2B%2528K%25CE%25AC%25CE%25B2%25CE%25B5%25CF%2581%2B%25CE%259C%25CE%25B9%25CE%25BE%25CF%2584%25CE%25AD%25CE%25B9%25CF%2580%2529.png\" width=\"720\" /><div dir=\"auto\"><iframe frameborder=\"0\" height=\"270\" src=\"https://youtube.com/embed/SNRgT90MR34\" width=\"720\"></iframe><div class=\"ecm0bbzt hv4rvrfc ihqw7lf3 dati1w0a\" data-ad-comet-preview=\"message\" data-ad-preview=\"message\" id=\"jsc_c_2xh\"><div class=\"j83agx80 cbu4d94t ew0dbk1b irj2b8pg\"><div class=\"qzhwtbm6 knvmm38d\"><span class=\"d2edcug0 hpfvmrgz qv66sw1b c1et5uql lr9zc1uh a8c37x1j keod5gw0 nxhoafnm aigsh9s9 d3f4x2em fe6kdd0r mau55g9w c8b282yb iv3no6db jq4qci2q a3bd9o3v b1v8xokw oo9gr5id hzawbc8m\" dir=\"auto\"><div class=\"kvgmc6g5 cxmmr5t8 oygrvhab hcukyx3x c1et5uql ii04i59q\"><div dir=\"auto\" style=\"text-align: start;\">Το Ατλαντίς από τα Ξύλινα Σπαθιά,</div><div dir=\"auto\" style=\"text-align: start;\">Η Γιορτή από τις Τρύπες,</div><div dir=\"auto\" style=\"text-align: start;\">Το San Michele του Θανάση Παπακωνσταντίνου</div><div dir=\"auto\" style=\"text-align: start;\">Το παραδοσιακό Άρωμα.</div></div><div class=\"o9v6fnle cxmmr5t8 oygrvhab hcukyx3x c1et5uql ii04i59q\"><div dir=\"auto\" style=\"text-align: start;\">Διασκευασμένα, ονειρικά από τον Morasta</div></div></span></div></div></div></div><a href=\"https://1.bp.blogspot.com/-6Hj4_9Caw5g/YYP_QNH3_7I/AAAAAAAAWOU/LqPXJPVv65oR_rH5b1OP4-9wohc4g8HQACLcBGAsYHQ/s1100/Screenshot%2B2021-11-04%2Bat%2B17-41-08%2BMorasta%2B-%2B%25CE%25A4%25CE%25B1%2B%25CE%25A3%25CE%25B9%25CE%25BD%25CE%25B5%25CE%25BC%25CE%25B1%25CF%2584%25CE%25B9%25CE%25BA%25CE%25AC%2B%2528K%25CE%25AC%25CE%25B2%25CE%25B5%25CF%2581%2B%25CE%259C%25CE%25B9%25CE%25BE%25CF%2584%25CE%25AD%25CE%25B9%25CF%2580%2529.png\" style=\"margin-left: 1em; margin-right: 1em;\"></a></div><br />"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1296715788904145013"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/1296715788904145013"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/11/morasta-.html",
+            "title": "Morasta - Τα Σινεματικά (Kάβερ Μιξτέιπ)"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-6Hj4_9Caw5g/YYP_QNH3_7I/AAAAAAAAWOU/LqPXJPVv65oR_rH5b1OP4-9wohc4g8HQACLcBGAsYHQ/s72-w640-h360-c/Screenshot%2B2021-11-04%2Bat%2B17-41-08%2BMorasta%2B-%2B%25CE%25A4%25CE%25B1%2B%25CE%25A3%25CE%25B9%25CE%25BD%25CE%25B5%25CE%25BC%25CE%25B1%25CF%2584%25CE%25B9%25CE%25BA%25CE%25AC%2B%2528K%25CE%25AC%25CE%25B2%25CE%25B5%25CF%2581%2B%25CE%259C%25CE%25B9%25CE%25BE%25CF%2584%25CE%25AD%25CE%25B9%25CF%2580%2529.png",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-57313846059942482"
+        },
+        "published": {
+          "$t": "2021-10-12T13:13:00.002+03:00"
+        },
+        "updated": {
+          "$t": "2021-10-12T13:13:19.818+03:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "autumn"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "cinematic"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "colors"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "focus"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "instrumental"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "rain"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "read"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "relax"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Ουράνιο Τόξο "
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><br /><img alt=\"\" border=\"0\" data-original-height=\"281\" data-original-width=\"500\" src=\"https://1.bp.blogspot.com/-C6fcuejRZwM/YWVe-VWELUI/AAAAAAAAWM8/ncIE8CuG3wkbGnzsnOe4Cunk8kfH0O3FACLcBGAsYHQ/s600/tumblr_o2x8zotl511tchrkco1_500.webp\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/AvyQNr5PQc0?list=PLSRDGXudTSm-LjEuQYNuVRPaC9SwNiymJ\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/57313846059942482"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/57313846059942482"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/10/ouranio-toxo.html",
+            "title": "Ουράνιο Τόξο "
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-C6fcuejRZwM/YWVe-VWELUI/AAAAAAAAWM8/ncIE8CuG3wkbGnzsnOe4Cunk8kfH0O3FACLcBGAsYHQ/s72-c/tumblr_o2x8zotl511tchrkco1_500.webp",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-6351095018938149737"
+        },
+        "published": {
+          "$t": "2021-10-07T13:09:00.006+03:00"
+        },
+        "updated": {
+          "$t": "2021-10-07T13:51:10.191+03:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "alternative"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "autumn"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "cold"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "colors"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "morning"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "relax"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "winter"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Γκρι"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img border=\"0\" data-original-height=\"206\" data-original-width=\"500\" height=\"264\" src=\"https://1.bp.blogspot.com/-GU9dT-iHrks/YV7G7_Z4ZJI/AAAAAAAAWMo/2PtQVOOl83wx71kCEiCkYjg0_CiZDeomQCLcBGAsYHQ/w640-h264/7219e89f474db55702ed3bd52e2c647b.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/eZc16uncwnQ?list=PLSRDGXudTSm87O8VE-iaJnM6Q-n5pBlJB\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/6351095018938149737"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/6351095018938149737"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/10/gkri.html",
+            "title": "Γκρι"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-GU9dT-iHrks/YV7G7_Z4ZJI/AAAAAAAAWMo/2PtQVOOl83wx71kCEiCkYjg0_CiZDeomQCLcBGAsYHQ/s72-w640-h264-c/7219e89f474db55702ed3bd52e2c647b.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-5655318286245241436"
+        },
+        "published": {
+          "$t": "2021-10-01T13:06:00.009+03:00"
+        },
+        "updated": {
+          "$t": "2021-10-01T13:07:20.601+03:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "autumn"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Balkan"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ethnik"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "instrumental"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "world"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Fall"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"225\" data-original-width=\"400\" src=\"https://1.bp.blogspot.com/-JADn6BtJr7I/YVbdHCruUXI/AAAAAAAAWMY/nBOUzhe3RP0ARF7iRyWRb-20VTghzrmnwCLcBGAsYHQ/s600/a25739e1f5ecb49d1849d7d8cb1382b5.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/kIFZXn8sm8Q?list=PLSRDGXudTSm9-7ZuSrmk6MW2PK3Avmnvu\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/5655318286245241436"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/5655318286245241436"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/10/fall.html",
+            "title": "Fall"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-JADn6BtJr7I/YVbdHCruUXI/AAAAAAAAWMY/nBOUzhe3RP0ARF7iRyWRb-20VTghzrmnwCLcBGAsYHQ/s72-c/a25739e1f5ecb49d1849d7d8cb1382b5.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-3342866548829073988"
+        },
+        "published": {
+          "$t": "2021-09-14T11:06:00.004+03:00"
+        },
+        "updated": {
+          "$t": "2021-09-14T11:06:30.154+03:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "coffee"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "jazz"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "monday"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "morning"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Κατσουφιασμένα Πρωινά"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"260\" data-original-width=\"500\" src=\"https://1.bp.blogspot.com/-vO457vvOszM/YUBXqIXiySI/AAAAAAAAWLw/I8AAovDKnhQ4Roke5cMylnmneEBE3lvIgCLcBGAsYHQ/s600/a1d96090e0c00fd149cc4fbfc84f4fe7.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/iZb5t78FsJs?list=PLSRDGXudTSm-Tj8QhbkIj6kM594Yt-QMV\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/3342866548829073988"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/3342866548829073988"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/09/katsoufiasmena prwina.html",
+            "title": "Κατσουφιασμένα Πρωινά"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-vO457vvOszM/YUBXqIXiySI/AAAAAAAAWLw/I8AAovDKnhQ4Roke5cMylnmneEBE3lvIgCLcBGAsYHQ/s72-c/a1d96090e0c00fd149cc4fbfc84f4fe7.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-4468687928414325416"
+        },
+        "published": {
+          "$t": "2021-09-13T22:30:00.001+03:00"
+        },
+        "updated": {
+          "$t": "2021-09-13T22:30:06.110+03:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "travel"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "world"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "εντεχνα"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "παραδοσιακα"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Φτερούγισμα"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"280\" data-original-width=\"498\" height=\"350\" src=\"https://1.bp.blogspot.com/-90cRaUOKmnE/YT-mFv4I_3I/AAAAAAAAWLo/Fg6hQZxlW1ku5A09FTpQJnZ3vUieOYPgwCLcBGAsYHQ/w640-h359/978ccae1ba3926c79720e9f59435c1dc.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/60YYRpCpvjE?list=PLSRDGXudTSm_mmkALKUH82qbcdQzMyRD0\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/4468687928414325416"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/4468687928414325416"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/09/fterougisma.html",
+            "title": "Φτερούγισμα"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-90cRaUOKmnE/YT-mFv4I_3I/AAAAAAAAWLo/Fg6hQZxlW1ku5A09FTpQJnZ3vUieOYPgwCLcBGAsYHQ/s72-w640-h359-c/978ccae1ba3926c79720e9f59435c1dc.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-2607598372753099527"
+        },
+        "published": {
+          "$t": "2021-09-02T14:08:00.001+03:00"
+        },
+        "updated": {
+          "$t": "2021-09-02T14:08:04.494+03:00"
+        },
+        "title": {
+          "type": "text",
+          "$t": "Μίκης Θεοδωράκης - Του Μικρού Βοριά "
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"300\" data-original-width=\"596\" src=\"https://1.bp.blogspot.com/-JBoDRhdmAJs/YTCwR76WBSI/AAAAAAAAWLI/cHNZ5_IzUZEx019xd8BIzcr_V5dZcWvbwCLcBGAsYHQ/s600/mikis-theodorakis-thriskeia-mou-einai-i-ellada1517837727.jpg\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/YCS69MjCNdE\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2607598372753099527"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/2607598372753099527"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/09/tou-mikrou-voria.html",
+            "title": "Μίκης Θεοδωράκης - Του Μικρού Βοριά "
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-JBoDRhdmAJs/YTCwR76WBSI/AAAAAAAAWLI/cHNZ5_IzUZEx019xd8BIzcr_V5dZcWvbwCLcBGAsYHQ/s72-c/mikis-theodorakis-thriskeia-mou-einai-i-ellada1517837727.jpg",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-5153967934331749523"
+        },
+        "published": {
+          "$t": "2021-09-01T13:09:00.006+03:00"
+        },
+        "updated": {
+          "$t": "2021-09-01T13:10:42.735+03:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "autumn"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "cinematic"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "instrumental"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "read"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "relax"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "summer"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Ομορφιες"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Αποκαλόκαιρο"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"270\" data-original-width=\"480\" src=\"https://1.bp.blogspot.com/-NdJH7BDnm7Y/YS9QdOXtkwI/AAAAAAAAWLA/_k9DlIc4s0MCaMT1WE_9LUlfwoFKo3toQCLcBGAsYHQ/s600/32cs.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/IVp67LNU440?list=PLSRDGXudTSm_Opkecnc_UmJ71LVBA9_W4\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/5153967934331749523"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/5153967934331749523"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/09/apokalokairo.html",
+            "title": "Αποκαλόκαιρο"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-NdJH7BDnm7Y/YS9QdOXtkwI/AAAAAAAAWLA/_k9DlIc4s0MCaMT1WE_9LUlfwoFKo3toQCLcBGAsYHQ/s72-c/32cs.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-493667159199458159"
+        },
+        "published": {
+          "$t": "2021-08-03T16:50:00.001+03:00"
+        },
+        "updated": {
+          "$t": "2021-08-03T16:50:02.695+03:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "dance"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "electro"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "happy"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "morning"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "Playlist"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "summer"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Καύσωνας"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img border=\"0\" data-original-height=\"330\" data-original-width=\"480\" height=\"440\" src=\"https://1.bp.blogspot.com/-qmMgbXUa5PQ/YQlI4mTL2mI/AAAAAAAAWKA/w1aGFsfHk9gXbrwWR2EOlMDZIWMyt0cagCLcBGAsYHQ/w640-h440/kalokairi.gif\" width=\"720\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/YNcGmY7Ud-I?list=PLSRDGXudTSm-6s3GwYlOn0WceI-nnd7YI\" width=\"720\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/493667159199458159"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/493667159199458159"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/08/kauswnas.html",
+            "title": "Καύσωνας"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-qmMgbXUa5PQ/YQlI4mTL2mI/AAAAAAAAWKA/w1aGFsfHk9gXbrwWR2EOlMDZIWMyt0cagCLcBGAsYHQ/s72-w640-h440-c/kalokairi.gif",
+          "height": "72",
+          "width": "72"
+        }
+      },
+      {
+        "id": {
+          "$t": "tag:blogger.com,1999:blog-6701038859805662683.post-8568733653632628232"
+        },
+        "published": {
+          "$t": "2021-08-01T21:22:00.002+03:00"
+        },
+        "updated": {
+          "$t": "2021-12-16T20:12:33.252+02:00"
+        },
+        "category": [
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "greek"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "love"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "summer"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "vintage"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "ατμοσφαιρικα"
+          },
+          {
+            "scheme": "http://www.blogger.com/atom/ns#",
+            "term": "βιντατζ"
+          }
+        ],
+        "title": {
+          "type": "text",
+          "$t": "Εκείνο Το Καλοκαίρι"
+        },
+        "content": {
+          "type": "html",
+          "$t": "<div style=\"text-align: center;\"><img alt=\"\" border=\"0\" data-original-height=\"169\" data-original-width=\"300\" height=\"381\" src=\"https://1.bp.blogspot.com/-lSUAKL9RSTc/YQbl0MZ8QgI/AAAAAAAAWJ0/SUiqE1yI9OkQleG0bqe9awWt7GxsjSo-QCLcBGAsYHQ/w640-h361/thalassa.gif\" width=\"640\" /><iframe frameborder=\"0\" height=\"150\" src=\"https://youtube.com/embed/PxOO4tiX6Xc?list=PLSRDGXudTSm9M_uxSBEu10aYMe7-XRq9h\" width=\"640\"></iframe></div>"
+        },
+        "link": [
+          {
+            "rel": "edit",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/8568733653632628232"
+          },
+          {
+            "rel": "self",
+            "type": "application/atom+xml",
+            "href": "https://www.blogger.com/feeds/6701038859805662683/posts/default/8568733653632628232"
+          },
+          {
+            "rel": "alternate",
+            "type": "text/html",
+            "href": "https://www.kasetophono.com/2021/08/ekeino-to-kalokairi.html",
+            "title": "Εκείνο Το Καλοκαίρι"
+          }
+        ],
+        "author": [
+          {
+            "name": {
+              "$t": "Κασετόφωνο"
+            },
+            "uri": {
+              "$t": "http://www.blogger.com/profile/18178577976449430700"
+            },
+            "email": {
+              "$t": "noreply@blogger.com"
+            },
+            "gd$image": {
+              "rel": "http://schemas.google.com/g/2005#thumbnail",
+              "width": "16",
+              "height": "16",
+              "src": "https://img1.blogblog.com/img/b16-rounded.gif"
+            }
+          }
+        ],
+        "media$thumbnail": {
+          "xmlns$media": "http://search.yahoo.com/mrss/",
+          "url": "https://1.bp.blogspot.com/-lSUAKL9RSTc/YQbl0MZ8QgI/AAAAAAAAWJ0/SUiqE1yI9OkQleG0bqe9awWt7GxsjSo-QCLcBGAsYHQ/s72-w640-h361-c/thalassa.gif",
+          "height": "72",
+          "width": "72"
+        }
+      }
+    ]
+  }
+}
