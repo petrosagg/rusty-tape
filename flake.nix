@@ -25,8 +25,7 @@
           wasm-bindgen-cli
         ];
 
-        buildInputs = [ openssl ];
-        buildType = "debug";
+        buildInputs = [ mpv openssl ];
         doCheck = false;
 
         cargoBuildFlags = [ "--bin taped" ];
