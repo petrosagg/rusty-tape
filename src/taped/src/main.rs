@@ -12,6 +12,8 @@ use warp::{reply::Response, Filter};
 
 use kasetophono::{scrape::blogger, Cassette, Category, Subcategory};
 
+include!(concat!(env!("OUT_DIR"), "/paths.rs"));
+
 static ROOT: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
 
 type Result<T> = std::result::Result<T, anyhow::Error>;
@@ -107,7 +109,7 @@ async fn main() -> Result<()> {
         if let Some(mut handle) = state.take() {
             handle.kill().unwrap();
         }
-        let handle = std::process::Command::new("mpv")
+        let handle = std::process::Command::new(MPV)
             .args(&["--no-video", &cassette.yt_url])
             .spawn()
             .unwrap();
