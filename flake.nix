@@ -17,6 +17,8 @@
 
         nativeBuildInputs = [
           breakpointHook
+          # This is not technically correct, but taped currently looks for mpv in the path
+          mpv
           pkg-config
           (rust-bin.stable.latest.default.override {
             targets = [ "wasm32-unknown-unknown" ];
