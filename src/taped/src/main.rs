@@ -63,18 +63,18 @@ async fn cassettes(subcategories: &[Subcategory]) -> Result<HashMap<Uuid, Casset
     let total = cassettes.len();
     debug!("fetched {} cassettes", total);
 
-    let mut i = 0;
-    cassettes.retain(move |_uuid, cassette| {
-        i += 1;
-        debug!("fetching songs ({}/{}): {:?}", i, total, &cassette.name);
-        match cassette.fill_songs() {
-            Ok(()) => true,
-            Err(e) => {
-                debug!("discarding cassette: {:?}: {}", &cassette.name, e);
-                false
-            }
-        }
-    });
+    // let mut i = 0;
+    // cassettes.retain(move |_uuid, cassette| {
+    //     i += 1;
+    //     debug!("fetching songs ({}/{}): {:?}", i, total, &cassette.name);
+    //     match cassette.fill_songs() {
+    //         Ok(()) => true,
+    //         Err(e) => {
+    //             debug!("discarding cassette: {:?}: {}", &cassette.name, e);
+    //             false
+    //         }
+    //     }
+    // });
 
     Ok(cassettes)
 }
@@ -83,33 +83,24 @@ async fn cassettes(subcategories: &[Subcategory]) -> Result<HashMap<Uuid, Casset
 async fn main() -> Result<()> {
     env_logger::init();
 
-    let cassettes: HashMap<Uuid, Cassette> = if let Ok(content) = File::open("metadata.json") {
-        info!("loading cassettes from disk");
-        serde_json::from_reader(content).unwrap()
-    } else {
-        info!("loading cassettes from upstream");
-        let body = reqwest::get("https://www.kasetophono.com")
-            .await?
-            .text()
-            .await?;
+    info!("loading cassettes from upstream");
+    let body = reqwest::get("https://www.kasetophono.com")
+        .await?
+        .text()
+        .await?;
 
-        let categories = kasetophono::scrape::category::scrape_categories(&body).unwrap();
-        let subcategories = subcategories(&categories).await?;
-        let cassettes = cassettes(&subcategories).await?;
-
-        let buf = serde_json::to_string_pretty(&cassettes).unwrap();
-        let mut file = File::create("metadata.json").unwrap();
-        file.write_all(buf.as_bytes()).unwrap();
-        cassettes
-    };
+    let categories = kasetophono::scrape::category::scrape_categories(&body).unwrap();
+    let subcategories = subcategories(&categories).await?;
+    let cassettes = cassettes(&subcategories).await?;
 
     info!("setting up http server");
     let cassettes = Arc::new(cassettes);
     let state: Arc<Mutex<Option<Child>>> = Arc::new(Mutex::new(None));
 
     let play_state = Arc::clone(&state);
+    let play_cassettes = Arc::clone(&cassettes);
     let play = warp::path!("api" / "play" / Uuid).map(move |uuid: Uuid| {
-        let cassette = &cassettes[&uuid];
+        let cassette = &play_cassettes[&uuid];
 
         println!("playing {}", &cassette.name);
         let mut state = play_state.lock().unwrap();
@@ -134,13 +125,15 @@ async fn main() -> Result<()> {
         "Killed"
     });
 
-    let cassettes = warp::path!("api" / "cassettes")
-        .and(warp::fs::file("metadata.json"))
+    let list_cassettes = Arc::clone(&cassettes);
+    let list = warp::path!("api" / "cassettes")
+        // TODO: This computes the json every time
+        .map(move || warp::reply::json(&*list_cassettes))
         .with(warp::compression::gzip());
 
     let routes = warp::get().and(
         play.or(stop)
-            .or(cassettes)
+            .or(list)
             .or(warp::path::full()
                 .and_then(|path: warp::path::FullPath| {
                     let path = path.as_str()[1..].to_owned();
