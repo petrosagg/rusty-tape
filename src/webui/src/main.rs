@@ -1,4 +1,5 @@
 use std::collections::HashMap;
+use std::fmt::Write;
 
 use uuid::Uuid;
 use wasm_bindgen_futures::spawn_local;
@@ -87,8 +88,12 @@ impl Component for Model {
 }
 
 async fn stop() {
+    let window = web_sys::window().unwrap();
+    let mut path = window.location().origin().unwrap();
+    path.push_str("/api/stop");
+
     reqwest::Client::new()
-        .get("http://localhost:3030/api/stop")
+        .get(path)
         .send()
         .await
         .unwrap()
@@ -98,8 +103,12 @@ async fn stop() {
 }
 
 async fn play_cassette(uuid: Uuid) {
+    let window = web_sys::window().unwrap();
+    let mut path = window.location().origin().unwrap();
+    write!(path, "/api/play/{}", uuid).expect("infallible");
+
     reqwest::Client::new()
-        .get(format!("http://localhost:3030/api/play/{}", uuid))
+        .get(path)
         .send()
         .await
         .unwrap()
@@ -109,8 +118,12 @@ async fn play_cassette(uuid: Uuid) {
 }
 
 async fn fetch_cassettes() -> HashMap<Uuid, Cassette> {
+    let window = web_sys::window().unwrap();
+    let mut path = window.location().origin().unwrap();
+    path.push_str("/api/cassettes");
+
     let res = reqwest::Client::new()
-        .get("http://localhost:3030/api/cassettes")
+        .get(path)
         .send()
         .await
         .unwrap()
