@@ -152,7 +152,11 @@ async fn main() -> Result<()> {
             .or(list)
             .or(warp::path::full()
                 .and_then(|path: warp::path::FullPath| {
-                    let path = path.as_str()[1..].to_owned();
+                    let path = if path.as_str() == "/" {
+                        "index.html".to_owned()
+                    } else {
+                        path.as_str()[1..].to_owned()
+                    };
                     let mime = mime_guess::from_path(&path).first_or_octet_stream();
                     async move {
                         let body = match ROOT.get_file(&path) {
