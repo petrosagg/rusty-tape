@@ -81,19 +81,33 @@ async fn cassettes(subcategories: &[Subcategory]) -> Result<HashMap<Uuid, Casset
     Ok(cassettes)
 }
 
-#[tokio::main]
-async fn main() -> Result<()> {
-    env_logger::init();
-
-    info!("loading cassettes from upstream");
+async fn load_cassettes() -> Result<HashMap<Uuid, Cassette>> {
     let body = reqwest::get("https://www.kasetophono.com")
         .await?
         .text()
         .await?;
 
-    let categories = kasetophono::scrape::category::scrape_categories(&body).unwrap();
+    let categories = kasetophono::scrape::category::scrape_categories(&body)?;
+
     let subcategories = subcategories(&categories).await?;
     let cassettes = cassettes(&subcategories).await?;
+    Ok(cassettes)
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    env_logger::init();
+
+    let cassettes = loop {
+        info!("loading cassettes from upstream");
+        match load_cassettes().await {
+            Ok(res) => break res,
+            Err(err) => {
+                info!("failed to get cassettes from upstream: {}", err);
+                tokio::time::sleep(std::time::Duration::from_millis(5000)).await;
+            }
+        }
+    };
 
     info!("setting up http server");
     let cassettes = Arc::new(cassettes);
