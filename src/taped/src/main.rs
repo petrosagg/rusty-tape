@@ -124,7 +124,7 @@ async fn main() -> Result<()> {
             handle.kill().unwrap();
         }
         let handle = std::process::Command::new(MPV)
-            .args(&["--no-video", &cassette.yt_url])
+            .args(&["--no-video", "--shuffle", &cassette.yt_url])
             .spawn()
             .unwrap();
         *state = Some(handle);
