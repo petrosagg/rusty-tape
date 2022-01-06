@@ -1,8 +1,13 @@
 {
   description = "Kasetophono client written in rust";
 
-  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  inputs.rust-overlay.url = "github:oxalica/rust-overlay";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
   outputs = { self, nixpkgs, rust-overlay }: {
     defaultPackage.x86_64-linux =
