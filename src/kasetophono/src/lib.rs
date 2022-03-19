@@ -5,7 +5,7 @@ use uuid::Uuid;
 pub mod scrape;
 
 /// A top level category of kasetophono
-#[derive(Debug, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, PartialEq, Serialize, Deserialize)]
 pub struct Category {
     /// The name of the category
     pub name: String,
@@ -31,7 +31,7 @@ pub enum SubcategoryKind {
     Cassette(String),
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Cassette {
     pub uuid: Uuid,
     pub name: String,
@@ -46,7 +46,7 @@ pub struct Cassette {
     pub created_at: String,
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 pub struct Song {
     pub id: String,
     pub title: String,

@@ -1,14 +1,20 @@
 use std::collections::HashMap;
+use std::net::SocketAddr;
 use std::process::Child;
 use std::sync::Arc;
 use std::sync::Mutex;
 
+use axum::extract::{Extension, Path};
+use axum::http::StatusCode;
+use axum::response::{Headers, Json};
+use axum::routing::get;
+use axum::Router;
 use futures::stream::{self, StreamExt, TryStreamExt};
 use futures::TryFutureExt;
+use http::{header::HeaderName, Uri};
 use include_dir::{include_dir, Dir};
 use log::{debug, info};
 use uuid::Uuid;
-use warp::{reply::Response, Filter};
 
 use kasetophono::{scrape::blogger, Cassette, Category, Subcategory};
 
@@ -94,6 +100,60 @@ async fn load_cassettes() -> Result<HashMap<Uuid, Cassette>> {
     Ok(cassettes)
 }
 
+async fn play_handler(Path(uuid): Path<Uuid>, Extension(state): Extension<Arc<ServerState>>) {
+    let cassette = &state.cassettes[&uuid];
+
+    println!("playing {}", &cassette.name);
+    let mut mpv_process = state.mpv_process.lock().expect("lock poisoned");
+    if let Some(mut handle) = mpv_process.take() {
+        handle.kill().expect("failed to kill previous mpv process");
+    }
+    let handle = std::process::Command::new(MPV)
+        .args(&["--no-video", "--shuffle", &cassette.yt_url])
+        .spawn()
+        .unwrap();
+    *mpv_process = Some(handle);
+}
+
+async fn stop_handler(Extension(state): Extension<Arc<ServerState>>) {
+    println!("stopping");
+    let mut mpv_process = state.mpv_process.lock().expect("lock poisoned");
+    if let Some(mut handle) = mpv_process.take() {
+        handle.kill().expect("failed to kill mpv process");
+    }
+}
+
+async fn list_handler(
+    Extension(state): Extension<Arc<ServerState>>,
+) -> Json<HashMap<Uuid, Cassette>> {
+    Json(state.cassettes.clone())
+}
+
+async fn static_handler(
+    uri: Uri,
+) -> std::result::Result<(Headers<[(HeaderName, String); 1]>, &'static [u8]), StatusCode> {
+    let path = if uri.path() == "/" {
+        "index.html"
+    } else {
+        &uri.path()[1..]
+    };
+    let content_type = mime_guess::from_path(&path)
+        .first_or_octet_stream()
+        .essence_str()
+        .to_owned();
+    let body = match ROOT.get_file(&path) {
+        Some(file) => file.contents(),
+        None => return Err(StatusCode::NOT_FOUND),
+    };
+    let headers = Headers([(http::header::CONTENT_TYPE, content_type)]);
+    Ok((headers, body))
+}
+
+struct ServerState {
+    cassettes: HashMap<Uuid, Cassette>,
+    mpv_process: Mutex<Option<Child>>,
+}
+
 #[tokio::main]
 async fn main() -> Result<()> {
     env_logger::init();
@@ -110,69 +170,23 @@ async fn main() -> Result<()> {
     };
 
     info!("setting up http server");
-    let cassettes = Arc::new(cassettes);
-    let state: Arc<Mutex<Option<Child>>> = Arc::new(Mutex::new(None));
-
-    let play_state = Arc::clone(&state);
-    let play_cassettes = Arc::clone(&cassettes);
-    let play = warp::path!("api" / "play" / Uuid).map(move |uuid: Uuid| {
-        let cassette = &play_cassettes[&uuid];
-
-        println!("playing {}", &cassette.name);
-        let mut state = play_state.lock().unwrap();
-        if let Some(mut handle) = state.take() {
-            handle.kill().unwrap();
-        }
-        let handle = std::process::Command::new(MPV)
-            .args(&["--no-video", "--shuffle", &cassette.yt_url])
-            .spawn()
-            .unwrap();
-        *state = Some(handle);
-        format!("{:?}", &cassette.name)
+    let server_state = Arc::new(ServerState {
+        cassettes,
+        mpv_process: Mutex::new(None),
     });
 
-    let stop_state = Arc::clone(&state);
-    let stop = warp::path!("api" / "stop").map(move || {
-        println!("stopping");
-        let mut state = stop_state.lock().unwrap();
-        if let Some(mut handle) = state.take() {
-            handle.kill().unwrap();
-        }
-        "Killed"
-    });
+    let app = Router::new()
+        .route("/api/play/:uuid", get(play_handler))
+        .route("/api/stop", get(stop_handler))
+        .route("/api/cassettes", get(list_handler))
+        .layer(Extension(server_state))
+        .fallback(get(static_handler));
 
-    let list_cassettes = Arc::clone(&cassettes);
-    let list = warp::path!("api" / "cassettes")
-        // TODO: This computes the json every time
-        .map(move || warp::reply::json(&*list_cassettes))
-        .with(warp::compression::gzip());
-
-    let routes = warp::get().and(
-        play.or(stop)
-            .or(list)
-            .or(warp::path::full()
-                .and_then(|path: warp::path::FullPath| {
-                    let path = if path.as_str() == "/" {
-                        "index.html".to_owned()
-                    } else {
-                        path.as_str()[1..].to_owned()
-                    };
-                    let mime = mime_guess::from_path(&path).first_or_octet_stream();
-                    async move {
-                        let body = match ROOT.get_file(&path) {
-                            Some(file) => file.contents(),
-                            None => return Err(warp::reject::not_found()),
-                        };
-                        let mut resp = Response::new(body.into());
-                        resp.headers_mut().insert(http::header::CONTENT_TYPE, mime.as_ref().try_into().unwrap());
-                        Ok(resp)
-                    }
-                })
-            )
-    );
-
-    info!("ready to accept connections");
-    warp::serve(routes).run(([127, 0, 0, 1], 3030)).await;
+    let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
+    axum::Server::bind(&addr)
+        .serve(app.into_make_service())
+        .await
+        .expect("failed to bind socket");
 
     Ok(())
 }
