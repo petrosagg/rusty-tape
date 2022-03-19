@@ -11,6 +11,7 @@ use futures::stream::{self, StreamExt, TryStreamExt};
 use futures::TryFutureExt;
 use log::{debug, info};
 use parking_lot::RwLock;
+use tower_http::compression::CompressionLayer;
 use uuid::Uuid;
 
 use kasetophono::{scrape::blogger, Cassette, Category, Subcategory};
@@ -135,6 +136,7 @@ async fn main() -> Result<()> {
         .route("/api/play/:uuid", get(handlers::play))
         .route("/api/stop", get(handlers::stop))
         .route("/api/cassettes", get(handlers::list))
+        .layer(CompressionLayer::new())
         .layer(Extension(server_state))
         .fallback(get(handlers::fallback));
 
