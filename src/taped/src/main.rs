@@ -3,24 +3,18 @@ use std::net::SocketAddr;
 use std::process::Child;
 use std::sync::Arc;
 
-use axum::extract::{Extension, Path};
-use axum::http::StatusCode;
-use axum::response::{Headers, Json};
+use axum::extract::Extension;
 use axum::routing::get;
 use axum::Router;
 use futures::stream::{self, StreamExt, TryStreamExt};
 use futures::TryFutureExt;
-use http::{header::HeaderName, Uri};
-use include_dir::{include_dir, Dir};
 use log::{debug, info};
 use parking_lot::RwLock;
 use uuid::Uuid;
 
 use kasetophono::{scrape::blogger, Cassette, Category, Subcategory};
 
-include!(concat!(env!("OUT_DIR"), "/paths.rs"));
-
-static ROOT: Dir<'_> = include_dir!("$CARGO_MANIFEST_DIR/assets");
+mod handlers;
 
 type Result<T> = std::result::Result<T, anyhow::Error>;
 
@@ -100,60 +94,7 @@ async fn load_cassettes() -> Result<HashMap<Uuid, Cassette>> {
     Ok(cassettes)
 }
 
-async fn play_handler(
-    Path(uuid): Path<Uuid>,
-    Extension(state): Extension<Arc<RwLock<ServerState>>>,
-) {
-    let mut state = state.write();
-
-    if let Some(mut handle) = state.mpv_process.take() {
-        handle.kill().expect("failed to kill previous mpv process");
-    }
-    let cassette = &state.cassettes[&uuid];
-    println!("playing {}", &cassette.name);
-    let handle = std::process::Command::new(MPV)
-        .args(&["--no-video", "--shuffle", &cassette.yt_url])
-        .spawn()
-        .unwrap();
-    state.mpv_process = Some(handle);
-}
-
-async fn stop_handler(Extension(state): Extension<Arc<RwLock<ServerState>>>) {
-    println!("stopping");
-    let mut state = state.write();
-    if let Some(mut handle) = state.mpv_process.take() {
-        handle.kill().expect("failed to kill mpv process");
-    }
-}
-
-async fn list_handler(
-    Extension(state): Extension<Arc<RwLock<ServerState>>>,
-) -> Json<HashMap<Uuid, Cassette>> {
-    let state = state.read();
-    Json(state.cassettes.clone())
-}
-
-async fn static_handler(
-    uri: Uri,
-) -> std::result::Result<(Headers<[(HeaderName, String); 1]>, &'static [u8]), StatusCode> {
-    let path = if uri.path() == "/" {
-        "index.html"
-    } else {
-        &uri.path()[1..]
-    };
-    let content_type = mime_guess::from_path(&path)
-        .first_or_octet_stream()
-        .essence_str()
-        .to_owned();
-    let body = match ROOT.get_file(&path) {
-        Some(file) => file.contents(),
-        None => return Err(StatusCode::NOT_FOUND),
-    };
-    let headers = Headers([(http::header::CONTENT_TYPE, content_type)]);
-    Ok((headers, body))
-}
-
-struct ServerState {
+pub struct ServerState {
     cassettes: HashMap<Uuid, Cassette>,
     mpv_process: Option<Child>,
 }
@@ -180,11 +121,11 @@ async fn main() -> Result<()> {
     }));
 
     let app = Router::new()
-        .route("/api/play/:uuid", get(play_handler))
-        .route("/api/stop", get(stop_handler))
-        .route("/api/cassettes", get(list_handler))
+        .route("/api/play/:uuid", get(handlers::play))
+        .route("/api/stop", get(handlers::stop))
+        .route("/api/cassettes", get(handlers::list))
         .layer(Extension(server_state))
-        .fallback(get(static_handler));
+        .fallback(get(handlers::fallback));
 
     let addr = SocketAddr::from(([127, 0, 0, 1], 3030));
     axum::Server::bind(&addr)
