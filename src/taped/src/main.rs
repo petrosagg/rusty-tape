@@ -2,7 +2,6 @@ use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::process::Child;
 use std::sync::Arc;
-use std::sync::Mutex;
 
 use axum::extract::{Extension, Path};
 use axum::http::StatusCode;
@@ -14,6 +13,7 @@ use futures::TryFutureExt;
 use http::{header::HeaderName, Uri};
 use include_dir::{include_dir, Dir};
 use log::{debug, info};
+use parking_lot::RwLock;
 use uuid::Uuid;
 
 use kasetophono::{scrape::blogger, Cassette, Category, Subcategory};
@@ -100,32 +100,36 @@ async fn load_cassettes() -> Result<HashMap<Uuid, Cassette>> {
     Ok(cassettes)
 }
 
-async fn play_handler(Path(uuid): Path<Uuid>, Extension(state): Extension<Arc<ServerState>>) {
-    let cassette = &state.cassettes[&uuid];
+async fn play_handler(
+    Path(uuid): Path<Uuid>,
+    Extension(state): Extension<Arc<RwLock<ServerState>>>,
+) {
+    let mut state = state.write();
 
-    println!("playing {}", &cassette.name);
-    let mut mpv_process = state.mpv_process.lock().expect("lock poisoned");
-    if let Some(mut handle) = mpv_process.take() {
+    if let Some(mut handle) = state.mpv_process.take() {
         handle.kill().expect("failed to kill previous mpv process");
     }
+    let cassette = &state.cassettes[&uuid];
+    println!("playing {}", &cassette.name);
     let handle = std::process::Command::new(MPV)
         .args(&["--no-video", "--shuffle", &cassette.yt_url])
         .spawn()
         .unwrap();
-    *mpv_process = Some(handle);
+    state.mpv_process = Some(handle);
 }
 
-async fn stop_handler(Extension(state): Extension<Arc<ServerState>>) {
+async fn stop_handler(Extension(state): Extension<Arc<RwLock<ServerState>>>) {
     println!("stopping");
-    let mut mpv_process = state.mpv_process.lock().expect("lock poisoned");
-    if let Some(mut handle) = mpv_process.take() {
+    let mut state = state.write();
+    if let Some(mut handle) = state.mpv_process.take() {
         handle.kill().expect("failed to kill mpv process");
     }
 }
 
 async fn list_handler(
-    Extension(state): Extension<Arc<ServerState>>,
+    Extension(state): Extension<Arc<RwLock<ServerState>>>,
 ) -> Json<HashMap<Uuid, Cassette>> {
+    let state = state.read();
     Json(state.cassettes.clone())
 }
 
@@ -151,7 +155,7 @@ async fn static_handler(
 
 struct ServerState {
     cassettes: HashMap<Uuid, Cassette>,
-    mpv_process: Mutex<Option<Child>>,
+    mpv_process: Option<Child>,
 }
 
 #[tokio::main]
@@ -170,10 +174,10 @@ async fn main() -> Result<()> {
     };
 
     info!("setting up http server");
-    let server_state = Arc::new(ServerState {
+    let server_state = Arc::new(RwLock::new(ServerState {
         cassettes,
-        mpv_process: Mutex::new(None),
-    });
+        mpv_process: None,
+    }));
 
     let app = Router::new()
         .route("/api/play/:uuid", get(play_handler))
