@@ -2,6 +2,7 @@ use std::collections::HashMap;
 use std::net::SocketAddr;
 use std::process::Child;
 use std::sync::Arc;
+use std::time::Duration;
 
 use axum::extract::Extension;
 use axum::routing::get;
@@ -21,7 +22,9 @@ type Result<T> = std::result::Result<T, anyhow::Error>;
 async fn subcategories(categories: &[Category]) -> Result<Vec<Subcategory>> {
     let mut responses = stream::iter(categories)
         .map(|c| reqwest::get(&c.url).and_then(|r| r.text()))
-        .buffer_unordered(5);
+        .buffer_unordered(5)
+        // Workaround for rust-lang/rust#89976
+        .boxed();
 
     let mut subcategories = vec![];
     while let Some(response) = responses.try_next().await? {
@@ -94,6 +97,26 @@ async fn load_cassettes() -> Result<HashMap<Uuid, Cassette>> {
     Ok(cassettes)
 }
 
+async fn refresh_loop(state: Arc<RwLock<ServerState>>) {
+    loop {
+        info!("loading cassettes from upstream");
+        match load_cassettes().await {
+            Ok(cassettes) => {
+                {
+                    state.write().cassettes = cassettes;
+                }
+                // Refresh once a day
+                tokio::time::sleep(Duration::from_secs(24 * 60 * 60)).await;
+            }
+            Err(err) => {
+                info!("failed to get cassettes from upstream: {}", err);
+                tokio::time::sleep(Duration::from_secs(30)).await;
+            }
+        }
+    }
+}
+
+#[derive(Default)]
 pub struct ServerState {
     cassettes: HashMap<Uuid, Cassette>,
     mpv_process: Option<Child>,
@@ -103,22 +126,10 @@ pub struct ServerState {
 async fn main() -> Result<()> {
     env_logger::init();
 
-    let cassettes = loop {
-        info!("loading cassettes from upstream");
-        match load_cassettes().await {
-            Ok(res) => break res,
-            Err(err) => {
-                info!("failed to get cassettes from upstream: {}", err);
-                tokio::time::sleep(std::time::Duration::from_millis(5000)).await;
-            }
-        }
-    };
-
     info!("setting up http server");
-    let server_state = Arc::new(RwLock::new(ServerState {
-        cassettes,
-        mpv_process: None,
-    }));
+    let server_state = Arc::new(RwLock::new(ServerState::default()));
+
+    tokio::spawn(refresh_loop(server_state.clone()));
 
     let app = Router::new()
         .route("/api/play/:uuid", get(handlers::play))
