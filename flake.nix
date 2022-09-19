@@ -2,7 +2,8 @@
   description = "Kasetophono client written in rust";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    # Pinned version that has wasm-bindgen-cli 0.2.78
+    nixpkgs.url = "github:NixOS/nixpkgs?rev=3c1cc587129ba8ebc691ada822c0031880dd16a6";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
