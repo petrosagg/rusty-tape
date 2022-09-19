@@ -50,8 +50,18 @@ async fn cassettes(subcategories: &[Subcategory]) -> Result<HashMap<Uuid, Casset
         .buffer_unordered(5);
 
     let mut cassettes = HashMap::new();
-    while let Some(response) = responses.try_next().await? {
-        let document: blogger::Document = serde_json::from_str(&response).unwrap();
+    while let Some(mut response) = responses.try_next().await? {
+        let document: blogger::Document = match serde_json::from_str(&response) {
+            Ok(document) => document,
+            Err(_) => {
+                // The website suddenly started serving responses with invalid JSON where two
+                // objects are separated by two commas instead of one. Probably a bug somewhere in
+                // Google. Workaround by retrying the deserialization after replacing all double
+                // commas with single ones
+                response = response.replace(",,", ",");
+                serde_json::from_str(&response).unwrap()
+            }
+        };
 
         let mut empty = true;
         for entry in document.feed.entry {
